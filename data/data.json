@@ -1,0 +1,21 @@
+{
+  "products" : [
+    {
+      "name" : "JavaScript",
+      "price": 60,
+      "category": "web"
+    },{
+      "name" : "Mysql",
+      "price": 55,
+      "category": "programing"
+    },{
+      "name" : "C++",
+      "price": 85,
+      "category": "programing"
+    },{
+      "name" : "MongoDB",
+      "price": 65,
+      "category": "programing"
+    }
+  ]
+}
