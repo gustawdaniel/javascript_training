@@ -28,6 +28,7 @@ firefox localhost:8080 &
 
 + live server in developing mode
 + fully, flexible assets managing
++ live nav-bar for single page app
 
 ##Packages
 
@@ -40,3 +41,9 @@ firefox localhost:8080 &
 + jquery
 + font-avesome
 
+--------------
+
+###Notes:
+Saving pass of git
+
+     git config --global credential.helper cache
