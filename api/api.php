@@ -1,39 +1,80 @@
 <?php
-
-    // php -S lalhost:8000 -file api.php
+    // php -S localhost:8000 api.php
+    // http://php.net/manual/en/features.commandline.webserver.php
 
     $method = $_SERVER['REQUEST_METHOD'];
-    $uri = $_SERVER['REQUEST_URI'];
+    $uri = explode('/', strtolower(substr($_SERVER['REQUEST_URI'], 1)));
+    $route = $uri[0];
+    $parameter = $uri[1];
+    $input =  json_decode(file_get_contents('php://input'),true);
+
+    $data = array();
+//    $data["config"] = [
+//            "uri" => implode("/",$uri),
+//                  "route" => $route,
+//                  "parameter" => $parameter,
+//                  "method" => $method,
+//                  "input" => $input,
+//    ];
 
     try {
-        switch ($uri) {
-            case "/word":
-                switch ($method) {
-                  case 'GET':
-                        $mng = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-                        $query = new MongoDB\Driver\Query([]);
-                        $rows = $mng->executeQuery("javascript_training.javascript_training", $query);
-                        foreach ($rows as $row) {
-                            echo "$row->word\n";
+        switch ($route) {
+            case "words": {
+                $mng = new MongoDB\Driver\Manager("mongodb://localhost:27017"); // http://php.net/manual/en/class.mongodb-driver-query.php
+                switch ($parameter) {
+                    case "": {
+                        switch ($method) {
+                            case 'GET': {
+                                $query = new MongoDB\Driver\Query([],['projection' => ['_id' => 1, "word" => 1]]);
+                                $rows = $mng->executeQuery("javascript_training.javascript_training", $query);
+                                foreach ($rows as $row) {
+                                    $data["words"][] = ["id" => (string)$row->_id, "word" => $row->word];
+                                }
+                                break;
+                            } case 'POST': {
+                                $bulk = new MongoDB\Driver\BulkWrite;
+                                $doc = ['word' => $input["word"]];
+                                $id = $bulk->insert($doc); // http://php.net/manual/en/mongodb-driver-bulkwrite.insert.php
+                                $mng->executeBulkWrite('javascript_training.javascript_training', $bulk);
+                                $data["words"] = ["id"=>(string)$id, "word" => $input["word"]];
+                                break;
+                            } default: {
+                                $data["error"] = ["code" => 405, "type" => "Method Not Allowed", "message" => "Method not allowed, try GET /word"];
+                                break;
+                            }
                         }
-                  case 'POST':
-                    try {
-                        $mng = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-                        $bulk = new MongoDB\Driver\BulkWrite;
-                        $doc = ['_id' => new MongoDB\BSON\ObjectID, 'word' => 'Elo'];
-                        $bulk->insert($doc);
-                        $mng->executeBulkWrite('javascript_training.javascript_training', $bulk);
-                  case 'DELETE':
-                    try {
-                        $mng = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-                        $bulk = new MongoDB\Driver\BulkWrite;
-                        $bulk->delete(['word' => 'example']);
-                        $mng->executeBulkWrite('javascript_training.javascript_training', $bulk);
+                        break;
+                    }
+                    default: {
+                        $id = new MongoDB\BSON\ObjectID($parameter);
+                        switch ($method) {
+                            case 'GET': {
+                                $query = new MongoDB\Driver\Query(['_id' => $id],['projection' => ['_id' => 1, "word" => 1]]);
+                                $rows = $mng->executeQuery("javascript_training.javascript_training", $query);
+                                foreach ($rows as $row) {
+                                     $data["words"] = ["id"=>$parameter, "word" => $row->word];
+                                }
+                                break;
+                            } case 'DELETE': {
+                                $bulk = new MongoDB\Driver\BulkWrite;
+                                $bulk->delete(['_id' => $id]);
+                                $mng->executeBulkWrite('javascript_training.javascript_training', $bulk);
+                                http_response_code(202);
+                                break;
+                            } default: {
+                                $data["error"] = ["code" => 405, "type" => "Method Not Allowed", "message" => "Method not allowed, try GET /word"];
+                                break;
+                            }
+                        }
+                        break;
+                    }
                 }
                 break;
-            default:
-                echo '{error:"not found"}';
+            }
+            default: {
+                $data["error"] = ["code" => 404, "type" => "Not Found", "message" => 'Route not found, try GET /words, GET /words/{id}, POST /words with body {"word":"example"}, DELETE /words/{id}'];
                 break;
+            }
         }
     } catch (MongoDB\Driver\Exception\Exception $e) {
         $filename = basename(__FILE__);
@@ -42,4 +83,7 @@
         echo "Exception:", $e->getMessage(), "\n";
         echo "In file:", $e->getFile(), "\n";
         echo "On line:", $e->getLine(), "\n";
-}
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($data);
