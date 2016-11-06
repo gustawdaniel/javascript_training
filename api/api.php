@@ -5,17 +5,21 @@
     $method = $_SERVER['REQUEST_METHOD'];
     $uri = explode('/', strtolower(substr($_SERVER['REQUEST_URI'], 1)));
     $route = $uri[0];
-    $parameter = $uri[1];
+    $parameter = $uri[1] ? $uri[1] : "";
     $input =  json_decode(file_get_contents('php://input'),true);
+    $post =  $_POST;
+    $word = $input["word"] ? $input["word"] : $_POST["word"];
 
     $data = array();
-//    $data["config"] = [
-//            "uri" => implode("/",$uri),
-//                  "route" => $route,
-//                  "parameter" => $parameter,
-//                  "method" => $method,
-//                  "input" => $input,
-//    ];
+    $data["config"] = [
+            "uri" => implode("/",$uri),
+                  "route" => $route,
+                  "parameter" => $parameter,
+                  "method" => $method,
+                  "input" => $input,
+                  "post" => $post,
+                  "word" => $word
+    ];
 
     try {
         switch ($route) {
@@ -33,10 +37,10 @@
                                 break;
                             } case 'POST': {
                                 $bulk = new MongoDB\Driver\BulkWrite;
-                                $doc = ['word' => $input["word"]];
+                                $doc = ['word' => $word];
                                 $id = $bulk->insert($doc); // http://php.net/manual/en/mongodb-driver-bulkwrite.insert.php
                                 $mng->executeBulkWrite('javascript_training.javascript_training', $bulk);
-                                $data["words"] = ["id"=>(string)$id, "word" => $input["word"]];
+                                $data["words"] = ["id"=>(string)$id, "word" => $word];
                                 break;
                             } default: {
                                 $data["error"] = ["code" => 405, "type" => "Method Not Allowed", "message" => "Method not allowed, try GET /word"];
@@ -85,5 +89,8 @@
         echo "On line:", $e->getLine(), "\n";
     }
 
+    header("Access-Control-Allow-Origin: http://localhost:8080");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Allow-Methods: GET, POST, DELETE");
     header('Content-Type: application/json');
     echo json_encode($data);

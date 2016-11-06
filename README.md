@@ -42,6 +42,8 @@ sudo pecl install mongodb
 + live server in developing mode
 + fully, flexible assets managing
 + live nav-bar for single page app
++ code encapsulation by anonymous functions
++ Cross-Origin Resource Sharing
 
 ##Packages
 

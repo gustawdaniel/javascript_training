@@ -1,3 +1,4 @@
+(function() {
 // get list and container
 var list = document.getElementsByClassName('list-group')[0];
 var container = document.getElementsByClassName("container")[0];
@@ -21,3 +22,4 @@ $.getJSON('data/data.json', function (data) {
 }).fail(function() {
     container.innerHTML = '<div class="alert alert-danger">Json has incorrect format or is unavailable.</div>';
 });
+})();
