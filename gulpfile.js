@@ -45,6 +45,7 @@ app.copy = function (srcFiles, outputDir) {
 
 gulp.task('styles', function () {
     app.addStyle([
+        c.bower+'/tether/dist/css/tether.min.css',
         c.bower+'/bootstrap/dist/css/bootstrap.min.css',
         c.bower+'/font-awesome/css/font-awesome.min.css',
         c.src+c.scss
@@ -54,6 +55,7 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
     app.addScript([
         c.bower+'/jquery/dist/jquery.min.js',
+        c.bower+'/tether/dist/js/tether.min.js',
         c.bower+'/bootstrap/dist/js/bootstrap.min.js',
         c.src+c.js
     ],'site.js');

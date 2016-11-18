@@ -3,7 +3,8 @@
 This repo contains exemplary usage of javascript:
 
 1. Loading JSON file with validation and generating list with content
-2. Validation of login form in real time (in progress)
+2. Validation of login form on submit trying
+3. Communication with MongoDb database and simple php API
 
 -------
 
@@ -22,6 +23,11 @@ git clone https://github.com/gustawdaniel/javascript_training.git
 npm install
 gulp
 firefox localhost:8080 &
+```
+
+## API SETUP in any env
+```
+cd api && php -S localhost:8000 api.php
 ```
 
 ## Instalation of mongodb (ubuntu 16.04)
