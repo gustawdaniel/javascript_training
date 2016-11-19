@@ -1,7 +1,9 @@
 (function() {
-    $(".nav li").on("click", function () {
-    // $(".nav li").removeClass("active");
-    $("#"+this.id.replace("nav","con")).attr('hidden', function (_, attr) { return !attr})
-    $(this).toggleClass("active");
-});
+
+    document.querySelector(".nav-item:last-child").classList.add("active");
+
+    var list = document.querySelectorAll(".tab-pane");
+    list.item(list.length-1).classList.add("active")
+
+
 })();
