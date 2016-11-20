@@ -1,58 +1,64 @@
 (function () {
 
-    function AJAX(config) {
+    var con = document.querySelector("#con-ajax");
+    var url = "http://127.0.0.1:3000/people";
 
-        if(!(this instanceof AJAX)) {
-            return new AJAX(config);
+    var girls = [
+        "Anna","Basia","Kasia","Ola","Agusia","Magda","Sylwia","Melania","Natalia"
+    ];
+
+    function getRandom(arr,modify=false,excluded=[]) {
+        if(excluded.length){
+            excluded.forEach((el)=>{
+                let ind = arr.indexOf(el);
+                if(ind > -1){
+                    arr.splice(ind,1);
+                }
+            })
         }
-
-        this._xhr = new XMLHttpRequest();
-        this._extendOptions();
-
+        // console.log(arr);
+        var ind = Math.floor(Math.random()*arr.length);
+        var rand = arr[ind];
+        if(modify){
+            arr.splice(ind,1);
+        }
+        return rand;
     }
 
-    AJAX.prototype._extendOptions = function(config = {}) {
 
-        var defaultConfig = JSON.parse(JSON.stringify(this._defaultConfig));
+    function getNamesFromData(data) {
+        let names = [];
+        data.forEach((el)=>{names.push(el.name)});
+        return names;
+    }
 
-        for (var key in defaultConfig){
 
-            if(config.hasOwnProperty(key)) {
-                defaultConfig[key] = config[key];
-            }
-        }
-        return defaultConfig;
-    };
+    $.get(url,(data)=>{
+        $.ajax({
+            url:url+"/"+getRandom(data,true).id,
+            method:"DELETE"
+        }).done(function (msg) {
+            $.post(url,{name:getRandom(girls,false,getNamesFromData(data))}).done((res)=>{
+                data.push(res);
+                con.appendChild((function (ul) {
+                    ul.classList.add("list-group");
+                    data.forEach((el)=>{
+                        ul.appendChild((function (li) {
+                            li.classList.add("list-group-item");
+                            li.innerHTML = el.name+'<span class="pull-right">'+el.id+'</span>';
+                            return li;
+                        })(document.createElement("li")))
+                    });
+                    return ul;
+                })(document.createElement("ul")))
+            });
+        });
+    });
 
-    AJAX.prototype._defaultConfig = {
-        type: "GET",
-        url: window.location.href,
-        data: {},
-        options: {
-            async: true,
-            timeout: 0,
-            username: null,
-            password: null
-        },
-        headers: {}
-    };
-
-    console.dir(AJAX({
-        type: "POST",
-        url: "127.0.0.1:3000/people",
-        data: {
-            name: "Agusia"
-        },
-        headers: {
-            "X-My-Header": "123#asdf"
-        },
-        success: function (response, xhr) {
-            console.log("Udało się! Status: "+ xhr.status);
-        },
-        failure: function (xhr) {
-            console.log("Wystąpił błąd. Status: "+xhr.status);
-        }
-    }))
-
+    // N = 9 - options
+    // k = 4 - slots
+    // manners - 9^4 = V
+    // not repetitive - 9*8*7*6 = C
+    // probability of repetition = 1 - C/V = 0.53
 
 })();
