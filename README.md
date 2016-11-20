@@ -12,7 +12,10 @@ This repo contains exemplary usage of javascript:
 8. Inheritace of objects and tool for writing test for these objects
 9. Ajax communication with json-server that modify list of girs on refresh!
 10. Php that set up cookie session and allow to use it on client side
--------
+
+
+
+-------------------
 
 # Instalation
 To fully open project you will need 4 terminals - one for any of servers. Before cloning repo create catalog for it. Enter tho catalog and setup any part of code below in separate terminal. You need to have free the following ports:
