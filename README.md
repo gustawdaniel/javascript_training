@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gustawdaniel/javascript_training.svg?branch=master)](https://travis-ci.org/gustawdaniel/javascript_training)
+
 # Javascript training repo
 
 This repo contains exemplary usage of javascript:
