@@ -85,12 +85,12 @@ gulp.task( 'clean', function() {
 });
 
 gulp.task('webserver', function() {
-    gulp.src(c.web)
-        .pipe(server({
-            livereload: true,
-            directoryListing: true,
-            open: true,
-            defaultFile: c.web+'/index.html'
+    console.log(p);
+
+    gulp.src("php")
+        .pipe(p.webserver({
+            open: false,
+            port: 8040,
         }));
 });
 
@@ -112,6 +112,10 @@ gulp.task('html', function () {
     gulp.src(c.web+'/*.html')
         .pipe(p.connect.reload());
 });
+
+gulp.task('server-mongo', p.shell.task([
+    'cd api && php -S localhost:8000 api.php &'
+]));
 
 gulp.task('build', ['clean', 'styles', 'scripts', 'fonts', 'data',]);
 gulp.task('default', ['build', 'connect', 'watch']);

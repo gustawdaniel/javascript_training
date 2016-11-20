@@ -1,49 +1,54 @@
-# Javascript exemplary repo
+# Javascript training repo
 
 This repo contains exemplary usage of javascript:
 
 1. Loading JSON file with validation and generating list with content
-2. Validation of login form on submit trying
+2. Validation of login form on submit
 3. Communication with MongoDb database and simple php API
-
+4. Regexp checking on keyup
+5. Counting words in textarea and displain list below
+6. Reading batery state for navigator object
+7. Creation table of multiplication using pure javascript
+8. Inheritace of objects and tool for writing test for these objects
+9. Ajax communication with json-server that modify list of girs on refresh!
+10. Php that set up cookie session and allow to use it on client side
 -------
 
 # Instalation
-
-## Production env
+To fully open project you will need 4 terminals - one for any of servers. Before cloning repo create catalog for it. Enter tho catalog and setup any part of code below in separate terminal. You need to have free the following ports:
++ 8080 - gulp-index
++ 8000 - php-mongo
++ 8040 - php-cookie
++ 3000 - json-server
+## Gulp server with index
 ```
-git clone https://github.com/gustawdaniel/javascript_training.git
-npm install
-firefox web/index.html &
-```
-
-## Developing env
-```
-git clone https://github.com/gustawdaniel/javascript_training.git
+git clone https://github.com/gustawdaniel/javascript_training.git .
 npm install
 gulp
 firefox localhost:8080 &
 ```
 
-## API SETUP in any env
+## MongoDb API server
 ```
 cd api && php -S localhost:8000 api.php
 ```
 
-## Instalation of mongodb (ubuntu 16.04)
-
-> [www.digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
-
-## Instalation php + mongodb
-
+## Php server for cookie
 ```
-sudo apt-get install php-mongodb
-sudo apt-get install php7.0-dev
-sudo apt install php-pear
-sudo pecl install mongodb
+cd php && php -S localhost:8040
 ```
 
-##Features:
+## Json-server for db.json
+```
+npm install -g json-server
+cd src/data/ json-server db.json
+```
+
+-------------------------
+
+
+
+## Features:
 
 + live server in developing mode
 + fully, flexible assets managing
@@ -51,14 +56,14 @@ sudo pecl install mongodb
 + code encapsulation by anonymous functions
 + Cross-Origin Resource Sharing
 
-##Packages
+## Packages
 
 + npm
 + gulp
 + bower
 + mongodb
 
-##Vendor:
+## Vendor:
 
 + bootstrap
 + jquery
@@ -66,7 +71,7 @@ sudo pecl install mongodb
 
 --------------
 
-$ API Documentation
+### Mongo API Documentation
 
 To start api server type:
 
@@ -87,7 +92,7 @@ Methods:
 
 Description:
 
-## GET /words
+#### GET /words
 
 To get all words in database use:
 
@@ -119,7 +124,7 @@ X-Powered-By: PHP/7.0.12-1+deb.sury.org~xenial+1
 
 ```
 
-## GET /words/{id}
+#### GET /words/{id}
 
 To get one word from database use:
 
@@ -145,7 +150,7 @@ X-Powered-By: PHP/7.0.12-1+deb.sury.org~xenial+1
 
 ```
 
-## POST /words
+#### POST /words
 
 To add one word to database use:
 
@@ -171,7 +176,7 @@ X-Powered-By: PHP/7.0.12-1+deb.sury.org~xenial+1
 
 ```
 
-## DELETE /words/{id}
+#### DELETE /words/{id}
 
 To delete word from database use:
 
@@ -192,10 +197,25 @@ X-Powered-By: PHP/7.0.12-1+deb.sury.org~xenial+1
 ```
 
 >Todo:
->Type test of api in behat.
+>Type test of api in Behat.
+>Simplify setting up project. I would like to open 4 servers in one command.
 
 
-###Notes:
+### Notes:
+
+Instalation of mongodb (ubuntu 16.04)
+
+> [www.digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04)
+
+Instalation php + mongodb
+
+```
+sudo apt-get install php-mongodb
+sudo apt-get install php7.0-dev
+sudo apt install php-pear
+sudo pecl install mongodb
+```
+
 Saving pass of git
 
      git config --global credential.helper cache
