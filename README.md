@@ -224,3 +224,70 @@ sudo pecl install mongodb
 Saving pass of git
 
      git config --global credential.helper cache
+
+
+# How to install MongoDB and PHP in Ubuntu 16
+
+Add repo with mongo
+
+```
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+```
+
+Update packages list in system
+
+```
+sudo apt-get update
+```
+
+Install mongo db
+
+```
+sudo apt-get install -y mongodb-org
+```
+
+and driver of mongo db for PHP
+
+```
+sudo apt-get install php-mongodb
+```
+
+Start server
+
+```
+sudo service mongod start
+```
+
+You can diagnose state of server by:
+
+```
+service mongod status
+mongo
+ctrl+x
+```
+
+Next after clone repo from:
+
+```
+git clone https://github.com/gustawdaniel/javascript_training.git
+```
+
+do
+
+```
+cd javascript_training
+```
+
+open console 2 and start php servrer
+
+```
+cd api && php -S localhost:8000 api.php
+```
+
+in firs console
+
+```
+sudo apt install httpie
+```
+
