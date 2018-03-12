@@ -1,0 +1,50 @@
+    <footer class="footer">
+        <div class="footer__social social">
+            <a href="" class="social__link">
+                <span class="social__icon social__icon--full">
+                    <i class="fa fa-facebook"></i>
+                </span>
+                <span class="social__text">Facebook</span>
+            </a>
+            <a href="" class="social__link">
+                <span class="social__icon social__icon--full">
+                    <i class="fa fa-twitter"></i>
+                </span>
+                <span class="social__text">Twitter</span>
+            </a>
+            <a href="" class="social__link">
+                <span class="social__icon social__icon--full">
+                    <i class="fa fa-instagram"></i>
+                </span>
+                <span class="social__text">Instagram</span>
+            </a>
+            <a href="" class="social__link">
+                <span class="social__icon social__icon--full">
+                    <i class="fa fa-google-plus"></i>
+                </span>
+                <span class="social__text">Google Plus</span>
+            </a>
+            <a href="" class="social__link">
+                <span class="social__icon social__icon--full">
+                    <i class="fa fa-youtube-play"></i>
+                </span>
+                <span class="social__text">Youtube</span>
+            </a>
+        </div>
+
+        <div class="footer__copyright">
+            <p class="footer__text">Agency <%= (new Date()).getFullYear() %></p>
+            <p class="footer__text">&copy; All rights reserved.</p>
+        </div>
+    </footer>
+
+<script src="/js/jquery-2.2.1.js"></script>
+<script src="/js/utils.js"></script>
+<% if(scripts) { %>
+<% scripts.forEach(function(url) { %>
+<script src="<%= path %>js/<%= url %>"></script>
+<% }) %>
+<% } %>
+<% if(!noscript) { %>
+<script src="<%= path %>js/scripts.js"></script>
+<% } %>

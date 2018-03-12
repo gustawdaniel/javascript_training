@@ -1,0 +1,56 @@
+    <header class="header container">
+        <div class="center-content">
+
+            <div class="header__social social">
+                <a href="" class="social__icon">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="" class="social__icon">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="" class="social__icon">
+                    <i class="fa fa-instagram"></i>
+                </a>
+                <a href="" class="social__icon">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+                <a href="" class="social__icon">
+                    <i class="fa fa-youtube-play"></i>
+                </a>
+            </div>
+
+            <a href="/" class="header__logo">Agency</a>
+
+            <div class="header__search">
+                <form action="/search">
+                    <input type="text" name="q" class="header__search-field form-field form-field--rounded form-field--small" placeholder="Wyszukaj przykładu">
+                </form>
+            </div>
+
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="/53/finish" class="nav__link<% if(example == 53) { %> nav__link--active<% } %>">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/51/finish" class="nav__link<% if(example == 51) { %> nav__link--active<% } %>">Oferta</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/54/finish" class="nav__link<% if(example == 54) { %> nav__link--active<% } %>">Portfolio</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/31/finish" class="nav__link<% if(example == 31) { %> nav__link--active<% } %>">FAQ</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/38/finish" class="nav__link<% if(example == 38) { %> nav__link--active<% } %>">Kontakt</a>
+                    </li>
+                    <% if(example) { %>
+                    <li class="nav__item">
+                        <a href="/<%= example %><% if(finish) { %>/finish<% } %>" class="nav__link nav__link--last"><%= title %></a>
+                    </li>
+                    <% } %>
+                </ul>
+            </nav>
+
+        </div>
+    </header>

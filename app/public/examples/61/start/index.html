@@ -1,0 +1,15 @@
+<div class="rte">
+
+    <p>Umieść następujący kod w pliku <strong>functions.php</strong> szablonu</p>
+
+    <pre>function load_jquery() {
+    if (!is_admin()) {
+        wp_deregister_script('jquery');
+        wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js', false, '2.2.1', false);
+        wp_enqueue_script('jquery');
+    }
+}
+
+add_action('after_setup_theme', 'load_jquery');</pre>
+
+</div>

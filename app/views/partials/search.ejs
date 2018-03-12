@@ -1,0 +1,23 @@
+<div class="rte">
+<% if(found) { %>
+    <ul>
+    <% examples.forEach(function(example) { %>
+        <li>
+            <a href="/<%= example.example %>/finish"><%= example.title %></a>
+        </li>
+    <% }); %>
+    </ul>
+
+<% } else { %>
+    <p>Niestety nic nie znaleziono dla frazy <strong><%= term %></strong><br>
+    Poniżej znajdziesz wszystkie przykłady:</p>
+
+    <ol>
+    <% examples.forEach(function(example) { %>
+        <li>
+            <a href="/<%= example.example %>/finish"><%= example.title %></a>
+        </li>
+    <% }); %>
+    </ol>
+<% } %>
+</div>

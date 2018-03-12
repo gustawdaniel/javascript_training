@@ -1,0 +1,59 @@
+<h2 class="heading heading--large">Skomentuj</h2>
+
+<form action="#" class="contact-form">
+
+    <fieldset class="form-fieldset form-fieldset--left">
+
+        <label class="form-label">Imię <span class="form-label__required">*</span></label>
+        <input type="text" class="form-field">
+
+    </fieldset>
+
+    <fieldset class="form-fieldset form-fieldset--right">
+
+        <label class="form-label">Adres-email: <span class="form-label__required">*</span></label>
+        <input type="email" class="form-field">
+
+    </fieldset>
+
+    <fieldset class="form-fieldset">
+
+        <label class="form-label form-label--inline">Ocena:</label>
+        <div id="rating" class="rating">
+            <span class="rating__star">
+                <i class="fa fa-star"></i>
+            </span>
+            <span class="rating__star">
+                <i class="fa fa-star"></i>
+            </span>
+            <span class="rating__star">
+                <i class="fa fa-star"></i>
+            </span>
+            <span class="rating__star">
+                <i class="fa fa-star"></i>
+            </span>
+            <span class="rating__star">
+                <i class="fa fa-star"></i>
+            </span>
+        </div>
+
+        <div class="hidden">
+            <input type="radio" name="rating" value="1">
+            <input type="radio" name="rating" value="2">
+            <input type="radio" name="rating" value="3">
+            <input type="radio" name="rating" value="4">
+            <input type="radio" name="rating" value="5">
+        </div>
+
+    </fieldset>
+
+    <fieldset class="form-fieldset">
+
+        <label class="form-label">Wiadomość <span class="form-label__required">*</span></label>
+        <textarea class="form-field form-field--textarea"></textarea>
+
+    </fieldset>
+
+    <button class="button button--full" type="submit">Wyślij</button>
+
+</form>

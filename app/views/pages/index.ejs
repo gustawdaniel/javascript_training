@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs jQuery - <%= title %></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:400,700&subset=latin,latin-ext">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body<% if(className) { %> class="<%= className %>"<% } %>>
+
+    <%- include("../partials/header") %>
+
+    <% if(className === "home") { %>
+    <%- include("../partials/slider") %>
+    <% } %>
+
+    <section class="content container">
+        <div class="center-content">
+
+            <h2 class="page-title heading heading--x-large"><span><%= title %></span></h2>
+
+            <% if(search) { %>
+            <%- include("../partials/search") %>
+            <% } else { %>
+            <%- include("../../public" + path + filename) %>
+            <% } %>
+
+        </div>
+    </section>
+
+    <%- include("../partials/footer") %>
+
+</body>
+</html>

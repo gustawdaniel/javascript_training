@@ -1,0 +1,15 @@
+{
+  "name": "kurs-jquery",
+  "version": "1.0.0",
+  "description": "Aplikacja do serwowania plików źródłowych kursu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Piotr Palarz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "ejs": "^2.4.1"
+  }
+}

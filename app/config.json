@@ -1,0 +1,266 @@
+[
+    {
+        "example": "01",
+        "title": "Instalacja jQuery"
+    },
+    {
+        "example": "02",
+        "title": "Podstawy selektorów"
+    },
+    {
+        "example": "03",
+        "title": "Zaawansowane selektory"
+    },
+    {
+        "example": "04",
+        "title": "Niestandardowe selektory"
+    },
+    {
+        "example": "05",
+        "title": "Filtrowanie"
+    },
+    {
+        "example": "06",
+        "title": "Filtrowanie hierarchiczne"
+    },
+    {
+        "example": "07",
+        "title": "Zdarzenie 'load'"
+    },
+    {
+        "example": "08",
+        "title": "Przypisywanie funkcji dla zdarzeń"
+    },
+    {
+        "example": "09",
+        "title": "Usuwanie funkcji zdarzeń"
+    },
+    {
+        "example": "10",
+        "title": "Delegacja zdarzeń"
+    },
+    {
+        "example": "11",
+        "title": "Obiekt zdarzenia"
+    },
+    {
+        "example": "12",
+        "title": "Wywoływanie zdarzeń"
+    },
+    {
+        "example": "13",
+        "title": "Przypisywanie i odczytywanie styli"
+    },
+    {
+        "example": "14",
+        "title": "Praca z klasami CSS"
+    },
+    {
+        "example": "15",
+        "title": "Praktyczny projekt: Gwiazdkowa ocena"
+    },
+    {
+        "example": "16",
+        "title": "Tworzenie elementów"
+    },
+    {
+        "example": "17",
+        "title": "Wstawianie elementów"
+    },
+    {
+        "example": "18",
+        "title": "Praca z treścią elementów"
+    },
+    {
+        "example": "19",
+        "title": "Praca z atrybutami elementów"
+    },
+    {
+        "example": "20",
+        "title": "Manipulacja kolejnością elementów"
+    },
+    {
+        "example": "21",
+        "title": "Usuwanie elementów"
+    },
+    {
+        "example": "22",
+        "title": "Odczytywanie i ustawianie wymiarów"
+    },
+    {
+        "example": "23",
+        "title": "Położenie elementów w dokumencie"
+    },
+    {
+        "example": "24",
+        "title": "Praktyczny projekt: Menu kontekstowe"
+    },
+    {
+        "example": "25",
+        "title": "Pokazywanie i ukrywanie elementów"
+    },
+    {
+        "example": "26",
+        "title": "Animacja właściwości CSS"
+    },
+    {
+        "example": "27",
+        "title": "Funkcje zwrotne"
+    },
+    {
+        "example": "28",
+        "title": "Kolejkowanie animacji"
+    },
+    {
+        "example": "29",
+        "title": "Easing animacji",
+        "scripts": ["jquery.easing.1.3.js"]
+    },
+    {
+        "example": "30",
+        "title": "Animacje z CSS3",
+        "scripts": ["jquery.transit.min.js"]
+    },
+    {
+        "example": "31",
+        "title": "Praktyczny projekt: Accordion"
+    },
+    {
+        "example": "32",
+        "title": "Pętla 'each' dla zbiorów"
+    },
+    {
+        "example": "33",
+        "title": "Ogólna pętla 'each'"
+    },
+    {
+        "example": "34",
+        "title": "Metoda 'map'"
+    },
+    {
+        "example": "35",
+        "title": "Metoda 'grep'"
+    },
+    {
+        "example": "36",
+        "title": "Odczytywanie i przypisywanie wartości"
+    },
+    {
+        "example": "37",
+        "title": "Serializacja formularza"
+    },
+    {
+        "example": "38",
+        "title": "Praktyczny projekt: Placeholder"
+    },
+    {
+        "example": "39",
+        "title": "'data' w jQuery"
+    },
+    {
+        "example": "40",
+        "title": "'data' w atrybutach HTML5"
+    },
+    {
+        "example": "41",
+        "title": "Wysyłanie zapytań"
+    },
+    {
+        "example": "42",
+        "title": "Skrótowe metody"
+    },
+    {
+        "example": "43",
+        "title": "JSONP"
+    },
+    {
+        "example": "44",
+        "title": "Globalna konfiguracja"
+    },
+    {
+        "example": "45",
+        "title": "Praktyczny projekt: AJAXowa paginacja"
+    },
+    {
+        "example": "46",
+        "title": "Zasada działania Deferred"
+    },
+    {
+        "example": "47",
+        "title": "Praktyczny projekt: Preloader obrazów"
+    },
+    {
+        "example": "48",
+        "title": "Podstawy tworzenia pluginów"
+    },
+    {
+        "example": "49",
+        "title": "Konfiguracja pluginu"
+    },
+    {
+        "example": "50",
+        "title": "Praktyczny projekt: Powiadomienie o Cookies",
+        "scripts": ["jquery.cookies.js"]
+    },
+    {
+        "example": "51",
+        "title": "Praktyczny projekt: Zakładki",
+        "scripts": ["jquery.tabs.js"]
+    },
+    {
+        "example": "52",
+        "title": "Praktyczny projekt: Lightbox",
+        "scripts": ["jquery.lightbox.js"]
+    },
+    {
+        "example": "53",
+        "title": "Slider obrazów",
+        "className": "home",
+        "scripts": ["jquery.bxslider.min.js", "jquery.lightbox.js"]
+    },
+    {
+        "example": "54",
+        "title": "Sortowanie w portfolio",
+        "scripts": ["jquery.mixitup.min.js", "jquery.lightbox.js"]
+    },
+    {
+        "example": "55",
+        "title": "Trick #1: Sprawdzanie wersji jQuery",
+        "noscript": true
+    },
+    {
+        "example": "56",
+        "title": "Trick #2: Wykrywanie przeglądarki",
+        "scripts": ["jquery.browser.min.js"]
+    },
+    {
+        "example": "57",
+        "title": "Trick #3: Skrót 'document.ready'"
+    },
+    {
+        "example": "58",
+        "title": "Trick #4: Ustawianie kontekstu dla funkcji"
+    },
+    {
+        "example": "59",
+        "title": "Trick #5: Przestrzenie nazw dla zdarzeń"
+    },
+    {
+        "example": "60",
+        "title": "Trick #6: Korzystanie z własnych zdarzeń w pluginach",
+        "scripts": ["jquery.lightbox.js"]
+    },
+    {
+        "example": "61",
+        "title": "Trick #7: Wczytywanie jQuery w WordPressie",
+        "noscript": true
+    },
+    {
+        "example": "62",
+        "title": "Trick #8: Rozwiązywanie konfliktów"
+    },
+    {
+        "example": "63",
+        "title": "Trick #9: Wysyłanie wielu zapytań AJAX"
+    }
+]
