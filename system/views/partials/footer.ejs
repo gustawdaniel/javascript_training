@@ -1,0 +1,11 @@
+<footer class="container">
+    <p><a href="http://eduweb.pl">eduweb.pl</a> &copy; <%= (new Date()).getFullYear() %></p>
+</footer>
+
+<% if(!noscript && !noEmbed) { %>
+<script src="/<%= relativePath %>js/<%= scriptName || "scripts" %>.js"<% if(scriptType == "module") { %> type="module"<% } %>></script>
+<% } %>
+<% if(scripts) { %>
+<% scripts.forEach(function(url) { %>
+<script src="/<%= relativePath %>js/<%= url %>"<% if(scriptType == "module") { %> type="module"<% } %>></script> <% }) %>
+<% } %>

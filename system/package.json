@@ -1,0 +1,23 @@
+{
+  "name": "kurs-es6",
+  "version": "1.0.0",
+  "description": "Aplikacja do serwowania plików źródłowych kursu",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "prod": "node index"
+  },
+  "author": "Piotr Palarz",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "highlight.js": "^9.11.0",
+    "http-shutdown": "^1.2.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.11"
+  }
+}

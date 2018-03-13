@@ -1,0 +1,50 @@
+/*----------------------------*/
+/*        CSS Stylesheet      */
+/*    (C) 2017 www.eduweb.pl  */
+/*----------------------------*/
+
+/*------------------------
+          CUSTOM
+------------------------*/
+
+@media (min-width: 768px) {
+
+    .edu-search {
+        float: right;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .edu-search {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+}
+
+.edu-main {
+    margin-bottom: 30px;
+}
+
+.edu-heading {
+    margin-bottom: 30px;
+}
+
+.edu-script {
+    margin-top: 30px;
+}
+
+.edu-script pre {
+    margin-top: 30px;
+}
+
+.edu-hidden {
+    display: none;
+}
+
+/*----------------------------*/
+/*        COPYRIGHT 2017      */
+/*        www.eduweb.pl       */
+/*----------------------------*/

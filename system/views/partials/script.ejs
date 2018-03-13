@@ -1,0 +1,10 @@
+<%
+    var showText = "Pokaż skrypt dla tego przykładu";
+    var hideText = "Ukryj skrypt dla tego przykładu";
+    var showScript = (scriptContent.match(/\n/g) || "").length + 1 < 50;
+%>
+<div class="edu-script">
+    <button id="scriptButton" class="btn btn-primary" data-show="<%= showText %>" data-hide="<%= hideText %>"><%= showScript ? hideText : showText %></button>
+
+    <pre id="scriptPreview" class="<% if(!showScript) { %> edu-hidden<% } %>"><%- highlight("javascript", scriptContent).value %></pre>
+</div>
