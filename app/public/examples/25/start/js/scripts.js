@@ -11,6 +11,17 @@
 
         });
 
+        $("#button").on("click", function () {
+            let hidden = $(".rte .hidden");
+            // if(hidden.is(":hidden")) {
+            //     hidden.slideDown(500);
+            // } else {
+            //     hidden.slideUp(3000);
+            // }
+            hidden.slideToggle(1500);
+            // hidden.fadeToggle(1500);
+        })
+
     });
 
 })(jQuery);

@@ -8,6 +8,9 @@
 
             e.preventDefault();
 
+            var serialize = form.serialize();
+
+            utils.log(serialize)
 
 
         });

@@ -7,7 +7,7 @@
             $(".rte img").animate({
                 width: "100%",
                 opacity: 1
-            }, 2000, function() {
+            }, 2000, "easeInOutBounce", function() {
                 console.log("Animacja wykonana");
             });
 

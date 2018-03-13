@@ -13,6 +13,18 @@
 
         });
 
+        $("#button").on('click', function () {
+            links.trigger('click');
+        });
+
+        imgs.on('showImages', function () {
+            $(this).addClass('visible');
+        });
+
+        $(window).load(function () {
+            imgs.trigger('showImages');
+        });
+
     });
 
 })(jQuery);

@@ -2,25 +2,34 @@
 
     function getName(ms) {
 
+        var dfd = $.Deferred();
+
         setTimeout(function() {
 
             var name = prompt("Podaj swoje imię");
 
             if(name) {
-                fn1(name);
-                console.log("Podane imię to: " + name);
+                // fn1(name);
+                // console.log("Podane imię to: " + name);
+                dfd.resolve(name);
             } else {
-                fn2();
-                console.log("Nie podano imienia");
+                dfd.reject();
+                // console.log("Nie podano imienia");
             }
 
         }, ms);
+
+        return dfd;
 
     }
 
     $(document).ready(function() {
 
-        getName(300);
+        getName(300).done(function (name) {
+            console.log("Podane imię to: "+ name);
+        }).fail(function () {
+            console.log("Nie podano imienia.")
+        });
 
     });
 

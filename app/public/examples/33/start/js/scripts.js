@@ -27,18 +27,28 @@
 
         var age20 = null;
 
-        for(var i = 0; i < objects.length; i++) {
+        // for(var i = 0; i < objects.length; i++) {
+        //
+        //     if(objects[i].name === "Agata") {
+        //         continue;
+        //     }
+        //
+        //     if(objects[i].age === 20) {
+        //         age20 = objects[i];
+        //         break;
+        //     }
+        //
+        // }
 
-            if(objects[i].name === "Agata") {
-                continue;
-            }
-
-            if(objects[i].age === 20) {
-                age20 = objects[i];
-                break;
-            }
-
-        }
+       $.each(objects, function (i, obj) {
+           if (obj.name === "Agata") {
+               return true;
+           }
+           if (obj.age === 20) {
+               age20 = obj;
+               return false;
+           }
+       });
 
         utils.log(age20);
 

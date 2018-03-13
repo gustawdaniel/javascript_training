@@ -4,10 +4,10 @@
 
         $("#button").on("click", function() {
 
-            $(".rte img").animate({
-                left: "400px",
+            $(".rte img").transition({
+                x: "400px",
                 opacity: 1
-            }, 1000);
+            }, 10000);
 
         });
 
