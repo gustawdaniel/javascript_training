@@ -8,7 +8,10 @@ module.exports = {
 
     output: {
         path: resolve(__dirname + "/../js/"),
-        filename: "[name].js"
+        filename: "[name].js",
+        library: "eQuery",
+        libraryTarget: "umd",
+        umdNamedDefine: true
     },
 
     module: {
@@ -19,7 +22,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        plugins: ["transform-runtime"],
+                        plugins: ["transform-runtime", "add-module-exports"],
                         presets: ["es2015"]
                     }
                 }

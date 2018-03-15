@@ -3,6 +3,13 @@ function Person(firstName, lastName) {
     this.lastName = lastName;
 }
 
+// Object.defineProperty(Person.prototype, 'sayHello', {
+//     enumerable: false,
+//     value: function () {
+//         return this.firstName + " " + this.lastName;
+//     }
+// });
+
 Person.prototype.sayHello = function() {
     return this.firstName + " " + this.lastName;
 };
@@ -21,3 +28,17 @@ Person.prototype.sayHello = function() {
 // }
 
 let person1 = new Person("Jan", "Kowalski");
+
+for(let key in person1) {
+    // if(person1.hasOwnProperty(key)) {
+        console.log(key);
+    // }
+}
+
+function createInstance(fromClass, ...args) {
+    return new fromClass(...args);
+}
+
+let person2 = createInstance(Person, "Edward", "Kowalski");
+
+console.log(person2);

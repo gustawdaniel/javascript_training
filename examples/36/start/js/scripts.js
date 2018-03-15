@@ -20,6 +20,10 @@ function makeRequest(url, gen) {
         }
     };
 
+    xhr.onerror = function () {
+        it.throw( new Error("Error occured") );
+    };
+
     xhr.send();
 
 }
@@ -28,10 +32,17 @@ function *showData(url) {
 
     let output = document.querySelector("#pre-36");
 
-    let result = yield ajax(url);
+    try {
 
-    output.textContent = result;
+        let result = yield ajax(url);
+        output.textContent = result;
+
+    } catch (e) {
+        console.log(e.message);
+        output.textContent = e.message;
+
+    }
 
 }
 
-makeRequest("http://code.eduweb.pl/kurs-es6/json/", showData);
+makeRequest("ttp://code.eduweb.pl/kurs-es6/json/", showData);

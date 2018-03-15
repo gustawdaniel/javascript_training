@@ -1,9 +1,9 @@
-function setSliderSpeed(options) {
+function setSliderSpeed({speed, easing} = {}) {
 
     let slider = {};
 
-    slider.speed = options.speed;
-    slider.easing = options.easing;
+    slider.speed = speed;
+    slider.easing = easing;
 
     console.log(slider);
 
@@ -16,3 +16,6 @@ const config = {
     easing: "linear",
     infinite: true
 };
+
+setSliderSpeed(config);
+

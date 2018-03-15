@@ -9,6 +9,9 @@ class Person {
         return `${this.firstName} ${this.lastName}`;
     }
 
+    static create({fName: firstName, lName: lastName} = {}) {
+        return new Person(firstName, lastName)
+    };
 }
 
 let person1 = new Person("Jan", "Kowalski");
@@ -17,3 +20,7 @@ let json = `{
     "fName": "Anna",
     "lName": "Kowalska"
 }`;
+
+let person2 = Person.create(JSON.parse(json));
+
+console.log(person2);

@@ -7,3 +7,11 @@ export function mixin(...mixins) {
     return fn;
 
 }
+
+export function staticMixin(objToMix, ...mixins) {
+
+    Object.assign(objToMix, ...mixins);
+
+    return objToMix;
+
+}

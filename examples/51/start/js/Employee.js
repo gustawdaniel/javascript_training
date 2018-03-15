@@ -1,3 +1,5 @@
+import Person from './Person.js';
+
 class Employee extends Person {
 
     constructor(firstName, lastName, position) {
@@ -10,3 +12,5 @@ class Employee extends Person {
     }
 
 }
+
+export default Employee;

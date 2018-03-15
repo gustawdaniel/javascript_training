@@ -11,7 +11,7 @@ export default {
     },
 
     addClass(className) {
-        this.each( node => node.classList.add(className) );
+        return this.each( node => node.classList.add(className) );
     },
 
     removeClass(className) {
@@ -37,6 +37,7 @@ export default {
             return this.get(0).style[prop];
         }
 
+        return this;
     }
 
 };

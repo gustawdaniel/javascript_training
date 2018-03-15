@@ -1,15 +1,15 @@
-function toUpper(text) {
+export function toUpper(text) {
     return text.toUpperCase();
 }
 
-function toLower(text) {
+export function toLower(text) {
     return text.toLowerCase();
 }
 
-function capitalize(text) {
+export function capitalize(text) {
     return toUpper(text.charAt(0)) + text.slice(1);
 }
 
-function trim(text) {
+export function trim(text) {
     return text.trim();
 }

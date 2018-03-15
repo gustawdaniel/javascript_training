@@ -1,8 +1,15 @@
+const CACHE = {};
+
 function $(selector) {
     return document.querySelector(selector);
 }
 
 function getJSON(url) {
+
+    if(CACHE[url] !== undefined) {
+        console.log("Data from RAM");
+        Promise.resolve(CACHE[url]);
+    }
 
     let xhr = new XMLHttpRequest();
 
@@ -12,6 +19,7 @@ function getJSON(url) {
 
         xhr.onload = function() {
             if(xhr.status === 200) {
+                CACHE[url] = xhr.responseText;
                 resolve(xhr.responseText);
             } else {
                 reject( new Error("Wystąpił błąd") );

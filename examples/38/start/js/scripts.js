@@ -1,67 +1,68 @@
-// class Model {
-
-//     constructor(data = {}) {
-//         this.data = data;
-//     }
-
-//     get(prop) {
-//         return this.data[prop];
-//     }
-
-//     set(prop, value) {
-//         this.data[prop] = value;
-//     }
-
+// function *gen() {
+//     yield 1;
+//     yield *[2,3,4];
+//     yield 5;
+// }
+//
+// for(let value of gen()) {
+//     console.log(value);
 // }
 
-// class Collection {
 
-//     constructor(models) {
+class Model {
 
-//         this.models = [];
+    constructor(data = {}) {
+        this.data = data;
+    }
 
-//         if( Collection.hasIterator(models) ) {
-//             this.populate(models);
-//         }
+    get(prop) {
+        return this.data[prop];
+    }
 
-//     }
+    set(prop, value) {
+        this.data[prop] = value;
+    }
 
-//     populate(models) {
+}
 
-//         for(let model of models) {
-//             this.models.push( new Model(model) );
-//         }
+class Collection {
 
-//     }
+    constructor(models) {
 
-//     [Symbol.iterator]() {
-//         var models = this.models,
-//             index = 0;
+        this.models = [];
 
-//         return {
-//             next: function() {
-//                 return {
-//                     done: (index === models.length) ? true : false,
-//                     value: models[index++]
-//                 };
-//             }
-//         };
-//     }
+        if( Collection.hasIterator(models) ) {
+            this.populate(models);
+        }
 
-//     static hasIterator(obj) {
-//         return obj && typeof obj[Symbol.iterator] === "function";
-//     }
+    }
 
-// }
+    populate(models) {
 
-// const USERS = window.USERS;
+        for(let model of models) {
+            this.models.push( new Model(model) );
+        }
 
-// let users = new Collection(USERS);
+    }
 
-// [...users]
-//     .filter(user => user.get("email").endsWith(".biz"))
-//     .forEach(user => user.set("email", user.get("email").replace(".biz", ".org")));
+    *[Symbol.iterator]() {
+        yield *this.models;
+    }
 
-// for(let user of users) {
-//     console.log(user.get("email"));
-// }
+    static hasIterator(obj) {
+        return obj && typeof obj[Symbol.iterator] === "function";
+    }
+
+}
+
+const USERS = window.USERS;
+
+let users = new Collection(USERS);
+
+[...users]
+    .filter(user => user.get("email").endsWith(".biz"))
+    .forEach(user => user.set("email", user.get("email").replace(".biz", ".org")));
+
+for(let user of users) {
+    console.log(user.get("email"));
+}

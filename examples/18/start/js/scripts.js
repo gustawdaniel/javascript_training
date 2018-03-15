@@ -6,4 +6,6 @@ let person = {
 
 let { firstName, lastName, age } = person;
 
-let info = "Imię: " + firstName + ", nazwisko: " + lastName + ", wiek: " + age + " lat.";
+let info = `Imię: ${firstName}, nazwisko: ${lastName}, wiek: ${age} lat.`;
+
+console.log(info);

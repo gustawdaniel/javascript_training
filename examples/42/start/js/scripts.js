@@ -30,7 +30,32 @@ function getJSON(url) {
 
 }
 
+function timeout(ms) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(() => reject(new Error("Timeout")) ,ms);
+    });
+}
+
 $("#btn-42").onclick = function() {
+
+    // Promise.all([
+    //     getJSON("http://code.eduweb.pl/kurs-es6/json/?shuffle=1"),
+    //     getJSON("http://code.eduweb.pl/kurs-es6/json/?shuffle=1")
+    // ])
+    //     .then(data => {
+    //         $("#pre-42").textContent = `${data[0]}\n\n${"=".repeat(70)}\n\n${data[1]}`
+    //     })
+    //     .catch(err => $("#pre-42").textContent = err.message )
+
+    Promise.race([
+        getJSON("http://code.eduweb.pl/kurs-es6/json/?shuffle=1"),
+        // getJSON("http://code.eduweb.pl/kurs-es6/json/?shuffle=1"),
+        timeout(50)
+    ])
+        .then(data => {
+            $("#pre-42").textContent = `${data}`
+        })
+        .catch(err => $("#pre-42").textContent = err.message )
 
 
 

@@ -19,3 +19,7 @@ export function isDOMNode(value) {
         value instanceof Element
     );
 }
+
+export function isObject(value) {
+    return value && value.toString() === "[object Object]";
+}

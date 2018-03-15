@@ -27,6 +27,10 @@ class Person {
         return `${this.firstName} ${this.lastName}`;
     }
 
+    static [Symbol.hasInstance](obj) {
+        return false;
+    }
+
 }
 
 class Employee extends Person {
@@ -40,6 +44,25 @@ class Employee extends Person {
         return `Nazywam się ${super.sayHello()} i pracuję jako ${this.position}.`;
     }
 
+    static [Symbol.hasInstance](obj) {
+        return obj.constructor === Employee;
+    }
+
+    // get [Symbol.toStringTag]() {
+    //     return this.sayHello();
+    // }
+
+    [Symbol.toPrimitive]() {
+        return this.sayHello();
+    }
 }
 
 let employee1 = new Employee("Jan", "Kowalski", "programista");
+
+
+
+
+console.log(employee1 instanceof Employee);
+console.log(employee1 instanceof Person);
+
+console.log("Object is " + employee1);

@@ -30,37 +30,17 @@ function getJSON(url) {
 
 }
 
-function run(gen, ...args) {
+async function getData(url) {
 
-    let it = gen(...args),
-        result;
+    let json = await getJSON(url);
+    let json2 = await getJSON(url + "?shuffle=1");
 
-    function next(value) {
-
-        result = it.next(value);
-
-        if(!result.done) {
-
-            if(typeof result.value.then === "function") {
-                result.value.then(next);
-            }
-        }
-
-    }
-
-    next();
+    $("#pre-63").textContent = `${json}\n\n${"=".repeat(70)}\n\n${json2}`;
 
 }
 
 $("#btn-63").onclick = function() {
 
-    run(function *(url) {
-
-        let json = yield getJSON(url);
-        let json2 = yield getJSON(url + "?shuffle=1");
-
-        $("#pre-63").textContent = `${json}\n\n${"=".repeat(70)}\n\n${json2}`;
-
-    }, "http://code.eduweb.pl/kurs-es6/json/");
+    getData("http://code.eduweb.pl/kurs-es6/json/");
 
 };

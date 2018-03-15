@@ -1,11 +1,12 @@
 import Attributes from "./Attributes.js";
 import Iteration from "./Iteration.js";
 import Content from "./Content.js";
+import Events from "./Events.js";
 import { mixin } from "../Utils/Mixin.js";
 
 const _NODES = new WeakMap();
 
-class eQuery extends mixin(Attributes, Iteration, Content) {
+class eQuery extends mixin(Attributes, Iteration, Content, Events) {
 
     constructor(nodes) {
 

@@ -8,10 +8,20 @@ let it = {
         return {
             next: function() {
                 return {
-                    done: (index === numbers.length) ? true : false,
+                    done: index === numbers.length,
                     value: numbers[index++]
                 };
             }
         };
     }
 };
+
+console.log(Math.max(...it));
+console.log(Math.max(1,2,3,4,5));
+
+console.log([...it]);
+console.log([..."Ala"]);
+
+var lis = document.querySelectorAll('.edu-content ul li');
+
+console.log([...lis].filter(li => li.textContent.includes(2)).forEach(li => li.style.fontWeight = 'bold'));

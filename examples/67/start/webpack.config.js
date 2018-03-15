@@ -2,11 +2,14 @@ const { resolve } = require("path");
 
 module.exports = {
 
-    entry: "./src/js/scripts.js",
+    entry: {
+        // polyfills: "babel-polyfill",
+        app: "./src/js/scripts.js"
+    },
 
     output: {
         path: resolve(__dirname + "/dist/js/"),
-        filename: "bundle.js"
+        filename: "[name].js"
     },
 
     module: {
@@ -17,6 +20,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
+                        plugins: ["transform-runtime"],
                         presets: ["es2015"]
                     }
                 }

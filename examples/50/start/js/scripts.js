@@ -11,4 +11,13 @@ class Person {
 
 }
 
-let person = new Person("Jan", "Kowalski");
+const PersonProxy = new Proxy(Person, {
+    apply(target, thisArg, argumentsList) {
+        console.log(target, thisArg, argumentsList);
+        return new target(...argumentsList);
+    }
+});
+
+let person = PersonProxy("Jan", "Kowalski");
+
+console.log(person);

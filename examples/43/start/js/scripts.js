@@ -30,8 +30,33 @@ function getJSON(url) {
 
 }
 
+
+function run(gen, ...args) {
+    let it = gen(...args),
+        result;
+    // let p = it.next().value;
+    // p.then(json => it.next(json));
+
+    function next(value) {
+        result = it.next(value);
+        if(!result.done) {
+            if (typeof result.value.then === "function") {
+                result.value.then(next)
+            }
+        }
+    }
+
+    next();
+}
+
 $("#btn-43").onclick = function() {
 
+    run(function *(url) {
+        let json = yield getJSON(url);
+        let json2 = yield getJSON(url + "?shuffle=1");
 
+        $("#pre-43").textContent = `${json}\n\n${"=".repeat(70)}\n\n${json2}`;
+    }, "http://code.eduweb.pl/kurs-es6/json/")
+    // getJSON()
 
 };

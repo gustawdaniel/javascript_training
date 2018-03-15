@@ -19,4 +19,4 @@ columns.forEach(function(text) {
 
 });
 
-// document.querySelector("#pre-62").textContent = output;
+document.querySelector("#pre-62").textContent = output;

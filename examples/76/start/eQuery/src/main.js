@@ -22,4 +22,6 @@ function init(param) {
 
 staticMixin(init, Ajax);
 
-window.eQuery = init;
+// window.eQuery = init;
+
+export default init;

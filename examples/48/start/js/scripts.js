@@ -1,13 +1,32 @@
 var person = {
     firstName: "Jan",
     lastName: "Kowalski",
-    getFullName: function() {
+    // getFullName: function() {
+    //     return this.firstName + " " + this.lastName;
+    // },
+    // setFullName: function(fullName) {
+    //     var parts = fullName.split(" ");
+    //
+    //     this.firstName = parts[0];
+    //     this.lastName = parts[1];
+    // }
+    get fullName() {
         return this.firstName + " " + this.lastName;
     },
-    setFullName: function(fullName) {
+    set fullName(fullName) {
         var parts = fullName.split(" ");
 
         this.firstName = parts[0];
         this.lastName = parts[1];
     }
 };
+
+// person.setFullName("Jan Nowak");
+
+console.log(person);
+console.log(person.fullName);
+
+person.fullName = "Eliza Mińskowska";
+
+console.log(person);
+console.log(person.fullName);

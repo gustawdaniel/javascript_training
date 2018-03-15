@@ -1,3 +1,4 @@
 app/yarn.lock
 app/node_modules
 .idea
+package-lock.json

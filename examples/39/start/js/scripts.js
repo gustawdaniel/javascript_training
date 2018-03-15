@@ -8,24 +8,29 @@ function getJSON(url) {
 
     xhr.open("GET", url);
 
-    xhr.onload = function() {
-        if(xhr.status === 200) {
-            console.log(xhr.responseText);
-        } else {
-            console.log( new Error("Wystąpił błąd") );
-        }
-    };
+    let p = new Promise(function (resolve, reject) {
+        xhr.onload = function() {
+            if(xhr.status === 200) {
+                // console.log(xhr.responseText);
+                resolve(xhr.responseText);
+            } else {
+                reject( new Error("Wystąpił błąd") );
+            }
+        };
 
-    xhr.onerror = function() {
-        console.log( new Error("Wystapił błąd") );
-    };
+        xhr.onerror = function() {
+            reject( new Error("Wystapił błąd") );
+        };
+    });
 
     xhr.send();
 
+    return p;
 }
 
 $("#btn-39").onclick = function() {
 
-    getJSON("ttp://code.eduweb.pl/kurs-es6/json/");
+    getJSON("http://code.eduweb.pl/kurs-es6/json/")
+        .then(json => $("#pre-39").textContent = json, err => $("#pre-39").textContent = err.message);
 
 };
