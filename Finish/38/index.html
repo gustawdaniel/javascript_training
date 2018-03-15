@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 38</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app">
+
+            <form action="#" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-3">
+                        <label class="form-label">Wybierz wartość startową</label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" v-model="initValue" :disabled="inProgress">
+                            <option v-for="i in 10" :value="i">{{ i }}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <br><br>
+
+            <edu-counter :init-value="initValue"></edu-counter>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    var Event = new Vue({
+        methods: {
+            toggleState: function(value) {
+                this.$emit("progress", value);
+            }
+        }
+    });
+
+    var Counter = {
+        template: `
+            <div>
+                <div class="toast toast-primary text-center" v-if="!inProgress">Wciśnij <strong>Start</strong>, aby rozpocząć odliczanie.</div>
+
+                <br>
+
+                <div class="text-center">
+                    <h1>{{ counter }}</h1>
+                    <button class="btn btn-primary" @click="start" :disabled="inProgress">Start</button>
+                </div>
+            </div>
+        `,
+        props: ["initValue"],
+        data() {
+            return {
+                counter: this.initValue,
+                inProgress: false
+            };
+        },
+        watch: {
+            initValue: function(newValue) {
+                this.counter = newValue;
+            }
+        },
+        methods: {
+            start: function() {
+                this.countdown();
+                this.inProgress = true;
+                Event.toggleState(this.inProgress);
+            },
+            countdown: function() {
+
+                this.counter--;
+
+                if(this.counter > 0) {
+                    setTimeout(this.countdown, 1000);
+                } else {
+                    setTimeout(() => {
+                        this.counter = this.initValue;
+                        this.inProgress = false;
+                        Event.toggleState(this.inProgress);
+                    }, 1000);
+                }
+
+            }
+        }
+    };
+
+    new Vue({
+        el: "#app",
+        data: {
+            initValue: 10,
+            inProgress: false
+        },
+        methods: {
+            toggleState: function(value) {
+                this.inProgress = value;
+            }
+        },
+        components: {
+            "edu-counter": Counter
+        },
+        created: function() {
+            Event.$on("progress", this.toggleState);
+        }
+    });
+
+</script>
+</body>
+</html>

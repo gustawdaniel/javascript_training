@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 24</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Formularz</h1>
+
+            <form action="#" class="form-horizontal" @submit.prevent="submit">
+                <div class="form-group">
+                    <div class="col-2">
+                        <label class="form-label">Imię</label>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-input" type="text" placeholder="Podaj swoje imię" @input="firstName = $event.target.value" :value="firstName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-2">
+                        <label class="form-label">Nazwisko</label>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-input" type="text" placeholder="Podaj swoje nazwisko" @input="lastName = $event.target.value" :value="lastName">
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <button class="btn btn-primary float-right" :disabled="!isFilled">Wyślij</button>
+                </div>
+            </form>
+
+            <p>Twoje dane: {{ fullName }}</p>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            firstName: "",
+            lastName: ""
+        },
+        computed: {
+            fullName: function() {
+                return this.firstName + " " + this.lastName;
+            },
+            isFilled: function() {
+                return this.firstName && this.lastName;
+            }
+        },
+        methods: {
+            submit: function(e) {
+                console.log("Wysyłam dane: " + this.fullName);
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

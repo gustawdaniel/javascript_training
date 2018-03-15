@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 45</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre-icons.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Zgody</h1>
+
+            <div class="form-group">
+                <label class="form-switch">
+                    <input type="checkbox" v-model="agreements.terms">
+                    <i class="form-icon"></i> Akceptuję <a href="#">regulamin</a>.
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="form-switch">
+                    <input type="checkbox" v-model="agreements.newsletter">
+                    <i class="form-icon"></i> Zapisz mnie na newsletter.
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="form-switch">
+                    <input type="checkbox" v-model="agreements.billing">
+                    <i class="form-icon"></i> Obciążaj moje konto comiesięcznie.
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            agreements: {
+                terms: false,
+                newsletter: false,
+                billing: false
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

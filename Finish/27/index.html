@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 27</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Formularz</h1>
+
+            <form action="#" class="form-horizontal" @submit.prevent="submit">
+                <div class="form-group">
+                    <div class="col-2">
+                        <label class="form-label">Imię</label>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-input" type="text" placeholder="Podaj swoje imię" v-model="firstName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-2">
+                        <label class="form-label">Nazwisko</label>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-input" type="text" placeholder="Podaj swoje nazwisko" v-model="lastName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-2">
+                        <label class="form-label">Ulubiony kolor</label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" v-model="color">
+                            <option disabled value="">Wybierz kolor</option>
+                            <option v-for="color in colors" :value="color">{{ color.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-switch">
+                        <input type="checkbox" v-model="terms" true-value="yes" false-value="no" checked>
+                        <i class="form-icon"></i> Akceptuję <a href="#">regulamin</a>.
+                    </label>
+                </div>
+
+                <div class="col-5">
+                    <button class="btn btn-primary float-right" :disabled="!terms">Wyślij</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            firstName: "",
+            lastName: "",
+            colors: [
+                {name: "niebieski", value: "blue"},
+                {name: "zielony", value: "green"},
+                {name: "czerwony", value: "red"},
+                {name: "fioletowy", value: "purple"},
+                {name: "pomarańczowy", value: "orange"},
+            ],
+            color: "",
+            terms: "yes"
+        },
+        methods: {
+            submit: function(e) {
+                console.log("Wysyłam dane.");
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

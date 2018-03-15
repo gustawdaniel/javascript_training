@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 31</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app">
+
+            <h1>Player</h1>
+
+            <video class="video-responsive" src="http://code.eduweb.pl/kurs-vue/media/video.mp4" ref="video"></video>
+            <br>
+            <button class="btn btn-primary" v-text="isPlaying ? 'Pause' : 'Play'" @click="playPause"></button>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            isPlaying: false
+        },
+        methods: {
+            playPause: function() {
+                var video = this.$refs.video;
+
+                if(video.paused) {
+                    video.play();
+                    this.isPlaying = true;
+                } else {
+                    video.pause();
+                    this.isPlaying = false;
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

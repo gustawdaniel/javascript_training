@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 03</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+            <h1>{{ heading }}</h1>
+            <p>{{ toUpperCase(text) }}</p>
+            <p>Imię: {{ name }}</p>
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            heading: "Hello World",
+            text: "Witaj w świecie Vue.js!",
+            name: ""
+        },
+        methods: {
+            toUpperCase: function(value) {
+                return value.toUpperCase();
+            },
+            getName: function() {
+                this.name = prompt("Podaj swoje imię");
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

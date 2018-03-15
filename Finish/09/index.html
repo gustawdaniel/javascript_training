@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 09</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+    </div>
+
+<script id="app-template" type="text/x-template">
+    <div id="app" v-cloak>
+        <h1>{{ fullName }}</h1>
+        <h2>Hello</h2>
+    </div>
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    var vm = new Vue({
+        // template: "<h1>{{ fullName }}</h1>",
+        template: "#app-template",
+        data: {
+            firstName: "Jan",
+            lastName: "Kowalski"
+        },
+        computed: {
+            fullName: function() {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+    });
+
+    vm.$mount();
+
+    setTimeout(function() {
+        document.querySelector(".container").appendChild(vm.$el);
+    }, 1000);
+
+</script>
+</body>
+</html>

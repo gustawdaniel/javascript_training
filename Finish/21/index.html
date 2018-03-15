@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 21</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <div class="toast toast-primary text-center" v-show="!inProgress">Wciśnij <strong>Start</strong>, aby rozpocząć odliczanie.</div>
+
+            <br>
+
+            <div class="text-center">
+                <h1>{{ counter }}</h1>
+                <button class="btn btn-primary" @click="start" :disabled="inProgress">Start</button>
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            counter: 10,
+            inProgress: false
+        },
+        methods: {
+            start: function() {
+                this.inProgress = true;
+                this.countdown();
+            },
+            countdown: function() {
+
+                this.counter--;
+
+                if(this.counter > 0) {
+                    setTimeout(this.countdown, 1000);
+                } else {
+                    setTimeout(() => {
+                        this.counter = 10;
+                        this.inProgress = false;
+                    }, 1000);
+                }
+
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

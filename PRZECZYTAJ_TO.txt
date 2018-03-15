@@ -1,0 +1,15 @@
+Pliki startowe i końcowe do każdej lekcji znajdziesz w katalogach Start i Finish.
+Zachęcam Cię do pisania kodu razem ze mną. Owszem, wydłuża to czas, jaki potrzebujesz
+na przerobienie kursu, ale znacznie zwiększa przyswajaną wiedzę.
+
+W lekcjach, w których korzystamy z vue-cli, przed uruchomieniem aplikacji wpisz
+w terminalu npm install, aby zainstalować wszystkie zależności z pliku package.json,
+gdyż katalogi node_modules nie są dołączone do plików źródłowych.
+
+Jeśli potrzebujesz krótkiego wstępu do korzystania z wiersza poleceń (terminala),
+polecam Ci moje darmowe lekcje na ten temat: http://blog.eduweb.pl/podstawy-korzystania-z-terminala/
+
+Node.js zainstalujesz natomiast z tej strony: https://nodejs.org
+
+Powodzenia!
+Piotr Palarz

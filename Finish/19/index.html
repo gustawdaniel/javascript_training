@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 19</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Użytkownicy</h1>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Lp.</th>
+                        <th>Imię i nazwisko</th>
+                        <th>Wiek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(user, index) in users" :key="user.id">
+                        <td>{{ index + 1 }}.</td>
+                        <td>
+                            {{ user.firstName }} {{ user.lastName }}
+                            <input type="checkbox">
+                        </td>
+                        <td>{{ user.age }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+            <button class="btn btn-primary float-right" @click="shuffle">Pomieszaj</button>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            users: [
+                {id: 1, firstName: "Jan", lastName: "Kowalski", age: 32},
+                {id: 2, firstName: "Anna", lastName: "Nowak", age: 27},
+                {id: 3, firstName: "Tomasz", lastName: "Zielony", age: 40},
+                {id: 4, firstName: "Katarzyna", lastName: "Tomczyk", age: 34},
+                {id: 5, firstName: "Mariusz", lastName: "Klasa", age: 21}
+            ]
+        },
+        methods: {
+            shuffle: function() {
+                this.users = _.shuffle(this.users);
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

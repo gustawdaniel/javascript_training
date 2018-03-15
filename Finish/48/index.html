@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 48</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.5s;
+        }
+
+        .fade-leave-active {
+            position: absolute;
+        }
+
+        .fade-move {
+            transition: transform 0.5s;
+        }
+
+        .fade-enter {
+            opacity: 0;
+        }
+
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Użytkownicy</h1>
+
+            <button class="btn btn-primary" @click="shuffle">Pomieszaj</button>
+
+            <transition-group tag="ul" name="fade" appear>
+                <li v-for="user in users" :key="user.id" @click="remove(user.id)">{{ user.firstName }} {{ user.lastName }}</li>
+            </transition-group>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            users: [
+                {id: 1, firstName: "Jan", lastName: "Kowalski", age: 32},
+                {id: 2, firstName: "Anna", lastName: "Nowak", age: 27},
+                {id: 3, firstName: "Tomasz", lastName: "Zielony", age: 40},
+                {id: 4, firstName: "Katarzyna", lastName: "Tomczyk", age: 34},
+                {id: 5, firstName: "Mariusz", lastName: "Klasa", age: 21}
+            ]
+        },
+        methods: {
+            remove: function(id) {
+                var index = _.findIndex(this.users, ["id", id]);
+                this.users.splice(index, 1);
+            },
+            shuffle: function() {
+                this.users = _.shuffle(this.users);
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Vue.js - Przykład 45</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.0/spectre-icons.min.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container grid-lg">
+
+        <div id="app" v-cloak>
+
+            <h1>Zgody</h1>
+
+            <edu-switch v-model="agreements.terms">
+                Akceptuję <a href="#">regulamin</a>.
+            </edu-switch>
+
+            <edu-switch v-model="agreements.newsletter">
+                Zapisz mnie na newsletter.
+            </edu-switch>
+
+            <edu-switch v-model="agreements.billing">
+                Obciążaj moje konto comiesięcznie.
+            </edu-switch>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    Vue.component("edu-switch", {
+        template: `
+            <div class="form-group">
+                <label class="form-switch">
+                    <input type="checkbox" v-model="isChecked">
+                    <i class="form-icon"></i> <slot></slot>
+                </label>
+            </div>
+        `,
+        props: {
+            value: Boolean
+        },
+        data: function() {
+            return {
+                isChecked: this.value
+            };
+        },
+        watch: {
+            isChecked: function() {
+                this.$emit("input", this.isChecked);
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app",
+        data: {
+            agreements: {
+                terms: false,
+                newsletter: false,
+                billing: false
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
