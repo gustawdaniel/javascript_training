@@ -14,6 +14,17 @@
         [v-cloak] {
             display: none;
         }
+        .slide-enter-active,
+        .slide-leave-active {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide-enter {
+            transform: translateX(-100vw);
+        }
+        .slide-leave-to {
+            transform: translateX(100vw);
+        }
     </style>
 </head>
 <body>
@@ -37,9 +48,11 @@
         <div class="container grid-lg">
 
             <section>
-                <keep-alive>
-                    <component :is="view" :users="users"></component>
-                </keep-alive>
+                <transition name="slide" mode="out-in" apper>
+                    <keep-alive>
+                        <component :is="view" :users="users"></component>
+                    </keep-alive>
+                </transition>
             </section>
 
         </div>

@@ -24,7 +24,27 @@
 
             <h1>Użytkownicy</h1>
 
-            <table class="table table-striped table-hover">
+            <edu-users :users="users"></edu-users>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script>
+
+    var Event = new Vue({
+        methods: {
+            remove(id) {
+                this.$emit("remove", id);
+            }
+        }
+    });
+
+    Vue.component("edu-users", {
+        template: `
+        <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Lp.</th>
@@ -37,17 +57,11 @@
                     <tr is="edu-user" v-for="(user, index) in users"
                     :user="user"
                     :index="index"
-                    @remove="remove"></tr>
+                    :key="user.id" />
                 </tbody>
-            </table>
-
-        </div>
-
-    </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
-<script>
+            </table>`,
+        props: ["users"]
+    });
 
     Vue.component("edu-user", {
         template: `
@@ -65,7 +79,7 @@
         props: ["user", "index"],
         methods: {
             remove: function(id) {
-                this.$emit("remove", id);
+                Event.remove(id);
             }
         }
     });
@@ -86,6 +100,9 @@
                 var index = _.findIndex(this.users, ["id", id]);
                 this.users.splice(index, 1);
             }
+        },
+        created() {
+            Event.$on("remove", this.remove);
         }
     });
 

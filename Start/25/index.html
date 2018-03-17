@@ -46,18 +46,18 @@
                     </div>
                     <div class="col-3">
                         <label class="form-radio">
-                            <input type="radio" value="k">
+                            <input type="radio" value="k" v-model="gender">
                             <i class="form-icon"></i> żeńska
                         </label>
                         <label class="form-radio">
-                            <input type="radio" value="m">
+                            <input type="radio" value="m" v-model="gender">
                             <i class="form-icon"></i> męska
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-switch">
-                        <input type="checkbox">
+                        <input type="checkbox" v-model="terms">
                         <i class="form-icon"></i> Akceptuję <a href="#">regulamin</a>.
                     </label>
                 </div>
@@ -84,7 +84,7 @@
         },
         methods: {
             submit: function(e) {
-                console.log("Wysyłam dane.");
+                console.log("Wysyłam dane.", this);
             }
         }
     });

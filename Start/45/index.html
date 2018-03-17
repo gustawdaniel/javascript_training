@@ -24,26 +24,9 @@
 
             <h1>Zgody</h1>
 
-            <div class="form-group">
-                <label class="form-switch">
-                    <input type="checkbox" v-model="agreements.terms">
-                    <i class="form-icon"></i> Akceptuję <a href="#">regulamin</a>.
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label class="form-switch">
-                    <input type="checkbox" v-model="agreements.newsletter">
-                    <i class="form-icon"></i> Zapisz mnie na newsletter.
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label class="form-switch">
-                    <input type="checkbox" v-model="agreements.billing">
-                    <i class="form-icon"></i> Obciążaj moje konto comiesięcznie.
-                </label>
-            </div>
+            <edu-switch v-model="agreements.terms">Akceptuję <a href="#">regulamin</a>.</edu-switch>
+            <edu-switch v-model="agreements.newsletter">Zapisz mnie na newsletter.</edu-switch>
+            <edu-switch v-model="agreements.billing">Obciążaj moje konto comiesięcznie.</edu-switch>
 
         </div>
 
@@ -53,11 +36,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 
+    Vue.component("edu-switch", {
+        template: `
+            <div class="form-group">
+                <label class="form-switch">
+                    <input type="checkbox" v-model="isChecked">
+                    <i class="form-icon"></i> <slot></slot>
+                </label>
+            </div>`,
+        props: {'value': Boolean},
+        data() {
+            return {
+                isChecked: this.value
+            }
+        },
+        watch: {
+            isChecked(n) {
+                this.$emit('input', n);
+            }
+        }
+    });
+
     new Vue({
         el: "#app",
         data: {
             agreements: {
-                terms: false,
+                terms: true,
                 newsletter: false,
                 billing: false
             }

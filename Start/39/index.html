@@ -30,13 +30,26 @@
                         <th>Lp.</th>
                         <th>Imię i nazwisko</th>
                         <th>Wiek</th>
-                        <th>Usuń</th>
+                        <th colspan="2">Akcje</th>
+                        <!--<th>Usuń</th>-->
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr
+                            is="edu-user"
+                            v-for="(user, index) in users"
+                            :user="user"
+                            :index="index"
+                            @remove="remove">
+                    </tr>
                 </tbody>
             </table>
+
+            <br>
+
+            <ul>
+                <li v-for="user in users">{{ user.fullName }} - {{ user.age }}</li>
+            </ul>
 
         </div>
 
@@ -44,7 +57,48 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script id="edu-user" type="text/x-template">
+    <tr>
+        <td>{{ index + 1 }}</td>
+        <td>
+            <template v-if="!editMode">
+                {{ user.fullName }}
+            </template>
+            <template v-else>
+                <div class="form-group">
+                    <input class="from-input" type="text" v-model.lazy="user.fullName">
+                </div>
+            </template>
+        </td>
+        <td>{{ user.age }}</td>
+        <td>
+            <button class="btn btn-primary" @click="editMode = !editMode">
+                <i class="icon" :class="{'icon-edit': !editMode, 'icon-check': editMode}"></i>
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-error" @click="remove(user.id)">
+                <i class="icon icon-delete"></i>
+            </button>
+        </td>
+    </tr>
+</script>
 <script>
+
+    Vue.component("edu-user", {
+        template: '#edu-user',
+        data() {
+            return {
+                editMode: false
+            }
+        },
+        props: ["user", "index"],
+        methods: {
+            remove(id) {
+                this.$emit("remove", id);
+            }
+        }
+    });
 
     new Vue({
         el: "#app",
@@ -56,6 +110,13 @@
                 {id: 4, fullName: "Katarzyna Tomczyk", age: 34},
                 {id: 5, fullName: "Mariusz Klasa", age: 21}
             ]
+        },
+        methods: {
+            remove(id) {
+//                this.users = this.users.filter(u => u.id !== id);
+                let index = _.findIndex(this.users, ["id", id]);
+                this.users.splice(index, 1);
+            }
         }
     });
 

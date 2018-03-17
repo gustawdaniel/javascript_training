@@ -20,7 +20,8 @@
     <div class="container grid-lg">
 
         <div id="app" v-cloak>
-            <h1>{{ fullName }}</h1>
+            <h1 v-html="mbolden(fullName) + '!'" v-once=""></h1>
+            <h1 v-text="fullName + '!'"></h1>
         </div>
 
     </div>
@@ -37,6 +38,11 @@
         computed: {
             fullName: function() {
                 return this.firstName + " " + this.lastName;
+            }
+        },
+        methods: {
+            mbolden(value) {
+                return `<strong>${value}</strong>`;
             }
         }
     });

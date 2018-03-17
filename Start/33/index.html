@@ -21,8 +21,8 @@
 
         <div id="app" v-cloak>
 
-            <edu-counter></edu-counter>
-            <edu-counter style="margin-top: 50px;"></edu-counter>
+            <edu-counter :init-value="10"></edu-counter>
+            <edu-counter :init-value="5" style="margin-top: 50px;"></edu-counter>
 
         </div>
 
@@ -50,6 +50,7 @@
                 inProgress: false
             };
         },
+        props:["initValue"],
         methods: {
             start: function() {
                 this.inProgress = true;
@@ -63,12 +64,15 @@
                     setTimeout(this.countdown, 1000);
                 } else {
                     setTimeout(() => {
-                        this.counter = 10;
+                        this.counter = this.initValue;
                         this.inProgress = false;
                     }, 1000);
                 }
 
             }
+        },
+        created() {
+            this.counter = this.initValue;
         }
     };
 

@@ -34,13 +34,11 @@
         <div class="container grid-lg">
 
             <section>
-                <transition mode="out-in" appear
-                enter-active-class="animated lightSpeedIn"
-                leave-active-class="animated lightSpeedOut">
+                <edu-animation appear enter="lightSpeedIn" leave="lightSpeedOut">
                     <keep-alive>
                         <component :is="view" :users="users"></component>
                     </keep-alive>
-                </transition>
+                </edu-animation>
             </section>
 
         </div>
@@ -66,6 +64,17 @@
             }
         }
     });
+
+    Vue.component('edu-animation', {
+        template: `
+            <transition mode="out-in" :appear=appear
+                :enter-active-class="'animated ' + enter"
+                :leave-active-class="'animated ' + leave">
+                    <slot></slot>
+            </transition>
+        `,
+        props: ["appear", "enter", "leave"]
+    })
 
     Vue.component("edu-home", {
         template: `

@@ -32,11 +32,27 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr v-for="(user, i) in users">
+                        <td v-text="i+1"></td>
+                        <td @click="remove(i)">{{user.firstName}} {{user.lastName}}</td>
+                        <td>{{user.age}}</td>
+                    </tr>
                 </tbody>
             </table>
 
             <div class="toast" v-else>Brak danych do wyświetlenia.</div>
+
+            <br><br>
+
+            <h1>JSON</h1>
+
+            <pre class="code" v-if="users.length">
+            {
+                <span v-for="(value, key, index) in users[0]">
+                    {{ key }}: {{ value }}
+                </span>
+            }
+            </pre>
 
         </div>
 
@@ -57,7 +73,9 @@
             ]
         },
         methods: {
-
+            remove(index) {
+                this.users.splice(index, 1);
+            }
         }
     });
 

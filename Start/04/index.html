@@ -20,8 +20,9 @@
     <div class="container grid-lg">
 
         <div id="app" v-cloak>
-            <h1></h1>
-            <p></p>
+            <h1>{{ fullName }}</h1>
+            <p>{{random()}}</p>
+            <p>{{age}}</p>
         </div>
 
     </div>
@@ -33,10 +34,24 @@
         el: "#app",
         data: {
             firstName: "Jan",
-            lastName: "Kowalski"
+            lastName: "Kowalski",
+            age: 30
+        },
+        computed: {
+            fullName() {
+                console.log("FULL");
+                return this.firstName + " " + this.lastName;
+            },
+
         },
         methods: {
-
+//            fullName() {
+//                console.log("Method");
+//                return this.firstName + " " + this.lastName;
+//            }
+            random() {
+                return Math.random();
+            }
         }
     });
 

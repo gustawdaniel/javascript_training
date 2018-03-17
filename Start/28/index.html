@@ -47,8 +47,16 @@
         data: {
             search: ""
         },
+        watch: {
+            search(n) {
+                this.queryServer(n);
+            }
+        },
         methods: {
-
+            queryServer: _.debounce(function(n) {
+                console.log(n);
+                return {"o" : "x"};
+            },500)
         }
     });
 

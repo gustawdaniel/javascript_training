@@ -27,7 +27,7 @@
                         <label class="form-label">Wybierz wartość startową</label>
                     </div>
                     <div class="col-3">
-                        <select class="form-select" v-model="initValue">
+                        <select class="form-select" v-model="initValue" :disabled="inProgress">
                             <option v-for="i in 10" :value="i">{{ i }}</option>
                         </select>
                     </div>
@@ -36,7 +36,7 @@
 
             <br><br>
 
-            <edu-counter :init-value="initValue"></edu-counter>
+            <edu-counter :init-value="initValue" :running.sync="inProgress"></edu-counter>
 
         </div>
 
@@ -58,11 +58,11 @@
                 </div>
             </div>
         `,
-        props: ["initValue"],
+        props: ["initValue", "running"],
         data() {
             return {
                 counter: this.initValue,
-                inProgress: false
+                inProgress: this.running
             };
         },
         watch: {
@@ -74,6 +74,7 @@
             start: function() {
                 this.countdown();
                 this.inProgress = true;
+                this.$emit("update:running", this.inProgress);
             },
             countdown: function() {
 
@@ -85,6 +86,7 @@
                     setTimeout(() => {
                         this.counter = this.initValue;
                         this.inProgress = false;
+                        this.$emit("update:running", this.inProgress);
                     }, 1000);
                 }
 
@@ -95,7 +97,8 @@
     new Vue({
         el: "#app",
         data: {
-            initValue: 10
+            initValue: 10,
+            inProgress: false
         },
         components: {
             "edu-counter": Counter

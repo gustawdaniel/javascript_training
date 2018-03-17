@@ -17,19 +17,26 @@
 </head>
 <body>
 
+
     <div class="container grid-lg">
 
-        <div id="app" v-cloak>
-            <h1>{{ fullName }}</h1>
-        </div>
 
     </div>
+
+<script id="app-template" type="text/x-template">
+    <div id="app" v-cloak>
+        <h1>{{fullName}}</h1>
+        <p>XD</p>
+    </div>
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 
     var vm = new Vue({
         el: "#app",
+//        template: `#app-template`,
+
         data: {
             firstName: "Jan",
             lastName: "Kowalski"
@@ -40,6 +47,14 @@
             }
         }
     });
+
+
+    vm.$mount();
+
+
+    setTimeout(()=>{
+        document.querySelector(".container.grid-lg").appendChild(vm.$el);
+    },1000)
 
 </script>
 </body>

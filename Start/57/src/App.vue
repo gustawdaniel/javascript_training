@@ -4,7 +4,7 @@
 
         <h1>Pokaz zdjęć</h1>
 
-        <slideshow :images="images" />
+      <router-vue :images="images"></router-vue>
 
     </div>
 

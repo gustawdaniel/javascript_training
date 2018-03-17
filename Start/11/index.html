@@ -21,7 +21,7 @@
 
         <div id="app" v-cloak>
             <h1>Licznik: {{ counter }}</h1>
-            <button class="btn btn-primary">Zwiększ licznik</button>
+            <button class="btn btn-primary" @mousemove="increment(2, $event)" :disabled="counter>=10">Zwiększ licznik</button>
         </div>
 
     </div>
@@ -33,6 +33,12 @@
         el: "#app",
         data: {
             counter: 0
+        },
+        methods: {
+            increment(by, e) {
+                this.counter+=by;
+                console.log(e);
+            }
         }
     });
 

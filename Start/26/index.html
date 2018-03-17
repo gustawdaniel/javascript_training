@@ -33,28 +33,12 @@
             <form action="#" class="form-horizontal" @submit.prevent="submit">
                 <div class="form-group">
                     <div class="col-2">
-                        <label class="form-label">Imię</label>
-                    </div>
-                    <div class="col-3">
-                        <input class="form-input" type="text" placeholder="Podaj swoje imię" v-model="firstName">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-2">
-                        <label class="form-label">Nazwisko</label>
-                    </div>
-                    <div class="col-3">
-                        <input class="form-input" type="text" placeholder="Podaj swoje nazwisko" v-model="lastName">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-2">
                         <label class="form-label">Ulubiony kolor</label>
                     </div>
                     <div class="col-3">
-                        <select class="form-select">
+                        <select class="form-select" v-model="color">
                             <option disabled selected value="">Wybierz kolor</option>
-
+                            <option v-for="color in colors" :value="color.value" v-text="color.name"></option>
                         </select>
                     </div>
                 </div>
@@ -67,7 +51,7 @@
 
             <div class="clearfix"></div>
 
-            <div class="color"></div>
+            <div class="color" :style="{ 'background-color': color }"></div>
 
         </div>
 
@@ -79,8 +63,6 @@
     new Vue({
         el: "#app",
         data: {
-            firstName: "",
-            lastName: "",
             colors: [
                 {name: "niebieski", value: "blue"},
                 {name: "zielony", value: "green"},

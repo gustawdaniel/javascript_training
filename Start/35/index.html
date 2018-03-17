@@ -19,7 +19,7 @@
 
     <div class="container grid-lg">
 
-        <div id="app">
+        <div id="app" v-cloak="">
 
             <form action="#" class="form-horizontal">
                 <div class="form-group">
@@ -27,8 +27,8 @@
                         <label class="form-label">Wybierz wartość startową</label>
                     </div>
                     <div class="col-3">
-                        <select class="form-select">
-                            <option value=""></option>
+                        <select class="form-select" v-model="initValue" :disabled="inProgress">
+                            <option v-for="number in 10" :value="number">{{number}}</option>
                         </select>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
             <br><br>
 
-            <edu-counter :init-value="10"></edu-counter>
+            <edu-counter :init-value="initValue" @progress="inProgress = $event"></edu-counter>
 
         </div>
 
@@ -74,6 +74,7 @@
             start: function() {
                 this.countdown();
                 this.inProgress = true;
+                this.$emit("progress", this.inProgress);
             },
             countdown: function() {
 
@@ -85,6 +86,7 @@
                     setTimeout(() => {
                         this.counter = this.initValue;
                         this.inProgress = false;
+                        this.$emit("progress", this.inProgress);
                     }, 1000);
                 }
 
@@ -95,8 +97,14 @@
     new Vue({
         el: "#app",
         data: {
-
+            initValue: 10,
+            inProgress: false
         },
+//        methods: {
+//            toggleState(value) {
+//
+//            }
+//        },
         components: {
             "edu-counter": Counter
         }

@@ -38,7 +38,10 @@
 
             <section>
                 <keep-alive>
-                    <component :is="view" :users="users"></component>
+                    <component :is="view" :users="users">
+                        <h2>Panel administracyjny</h2>
+                        <p>Nawigacja</p>
+                    </component>
                 </keep-alive>
             </section>
 
@@ -69,8 +72,9 @@
     Vue.component("edu-home", {
         template: `
             <div>
-                <h1>{{ message }}</h1>
-                <p>{{ text }}</p>
+                <!--<h1>{{ message }}</h1>-->
+                <!--<p>{{ text }}</p>-->
+                <slot></slot>
             </div>
         `,
         data: function() {

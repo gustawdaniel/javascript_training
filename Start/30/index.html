@@ -29,7 +29,7 @@
                         <label class="form-label">Filtruj</label>
                     </div>
                     <div class="col-3">
-                        <input class="form-input" type="text" placeholder="Nazwisko">
+                        <input class="form-input" type="text" placeholder="Nazwisko" v-model="query">
                     </div>
                 </div>
             </form>
@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, index) in users">
+                    <tr v-for="(user, index) in filtered">
                         <td>{{ index + 1 }}.</td>
                         <td>{{ user.firstName }} {{ user.lastName }}</td>
                         <td>{{ user.age }}</td>
@@ -61,6 +61,7 @@
     new Vue({
         el: "#app",
         data: {
+            query: "",
             users: [
                 {firstName: "Jan", lastName: "Kowalski", age: 32},
                 {firstName: "Anna", lastName: "Nowak", age: 27},
@@ -68,6 +69,13 @@
                 {firstName: "Katarzyna", lastName: "Tomczyk", age: 34},
                 {firstName: "Mariusz", lastName: "Klasa", age: 21}
             ]
+        },
+        computed: {
+            filtered() {
+                return this.users.filter(user =>
+                    new RegExp(this.query,"i").test(user.firstName + " " + user.lastName)
+                );
+            }
         }
     });
 

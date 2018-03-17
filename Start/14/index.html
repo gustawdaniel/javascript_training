@@ -13,6 +13,32 @@
         [v-cloak] {
             display: none;
         }
+        .flex {
+            padding: 5vh;
+            display: flex;
+            justify-content: center;
+        }
+        .small {
+            height: 100px;
+            width: 100px;
+            background-color: cornflowerblue;
+            box-shadow: rgba(174, 174, 174, 0.58) 3px 3px 5px 0;
+            border-radius: 5px;
+            transition: transform .8s ease-in-out;
+            /*;*/
+        }
+        .small:hover {
+            transform: rotate(360deg);
+        }
+        .big {
+            height: 200px;
+            width: 200px;
+            background-color: #6de2ff;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            box-shadow: rgba(174, 174, 174, 0.58) 3px 3px 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -37,15 +63,25 @@
                         <label class="form-label">Wiadomość</label>
                     </div>
                     <div class="col-3">
-                        <textarea class="form-input" placeholder="Wpisz wiadomość" rows="3"></textarea>
+                        <textarea class="form-input" placeholder="Wpisz wiadomość" rows="3"
+                            @keydown.shift.enter.prevent="submit"></textarea>
                     </div>
                 </div>
 
+
                 <div class="col-5">
+                    <button type="button" class="btn btn-primary" :disabled="!sent" @click="sent=!sent">Enable</button>
+
                     <button class="btn btn-primary float-right" :disabled="sent">Wyślij</button>
                 </div>
             </form>
 
+
+            <div class="flex">
+                <div class="big" @click.self="logB">
+                    <div class="small" @click.exact="logS"></div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -61,6 +97,12 @@
         methods: {
             submit: function(e) {
                 this.sent = true;
+            },
+            logB(e) {
+                console.log("B",e);
+            },
+            logS(e) {
+                console.log("S",e);
             }
         }
     });

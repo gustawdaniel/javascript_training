@@ -21,14 +21,10 @@
 
         <div id="app" v-cloak>
 
-            <div class="toast toast-primary text-center" v-show="!inProgress">Wciśnij <strong>Start</strong>, aby rozpocząć odliczanie.</div>
+            <edu-counter></edu-counter>
+            <edu-counter style="margin-top: 50px"></edu-counter>
 
-            <br>
 
-            <div class="text-center">
-                <h1>{{ counter }}</h1>
-                <button class="btn btn-primary" @click="start" :disabled="inProgress">Start</button>
-            </div>
 
         </div>
 
@@ -37,11 +33,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 
-    new Vue({
-        el: "#app",
-        data: {
-            counter: 10,
-            inProgress: false
+    let counter = {
+        template: `
+        <div>
+        <div class="toast toast-primary text-center" v-show="!inProgress">Wciśnij <strong>Start</strong>, aby rozpocząć odliczanie.</div>
+
+        <br>
+
+        <div class="text-center">
+            <h1>{{ counter }}</h1>
+            <button class="btn btn-primary" @click="start" :disabled="inProgress">Start</button>
+        </div>
+        </div>
+`,
+        data() {
+            return {
+                counter: 100,
+                inProgress: false
+            }
         },
         methods: {
             start: function() {
@@ -53,15 +62,22 @@
                 this.counter--;
 
                 if(this.counter > 0) {
-                    setTimeout(this.countdown, 1000);
+                    setTimeout(this.countdown, 30);
                 } else {
                     setTimeout(() => {
-                        this.counter = 10;
+                        this.counter = 100;
                         this.inProgress = false;
-                    }, 1000);
+                    }, 30);
                 }
 
             }
+        }
+    };
+
+    new Vue({
+        el: "#app",
+        components: {
+            'edu-counter': counter
         }
     });
 

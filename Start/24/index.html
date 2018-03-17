@@ -29,7 +29,7 @@
                         <label class="form-label">Imię</label>
                     </div>
                     <div class="col-3">
-                        <input class="form-input" type="text" placeholder="Podaj swoje imię" v-model="firstName">
+                        <input class="form-input" type="text" placeholder="Podaj swoje imię" @input="firstName = $event.target.value" :value="firstName">
                     </div>
                 </div>
                 <div class="form-group">

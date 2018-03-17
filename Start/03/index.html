@@ -21,7 +21,8 @@
 
         <div id="app" v-cloak>
             <h1>{{ heading }}</h1>
-            <p>{{ text }}</p>
+            <p>{{ toUpperCase(text) }}</p>
+            <p>Imię: {{ name }}</p>
         </div>
 
     </div>
@@ -33,7 +34,16 @@
         el: "#app",
         data: {
             heading: "Hello World",
-            text: "Witaj w świecie Vue.js!"
+            text: "Witaj w świecie Vue.js!",
+            name: ""
+        },
+        methods: {
+            toUpperCase(value) {
+                return value.toUpperCase();
+            },
+            getName() {
+                this.name = prompt("Podaj swoje imię");
+            }
         }
     });
 

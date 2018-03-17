@@ -34,7 +34,11 @@
         <div class="container grid-lg">
 
             <section>
-                <transition name="slide" mode="out-in" appear>
+                <transition mode="out-in" appear
+                    enter-active-class="animated lightSpeedIn"
+                    leave-active-class="animated lightSpeedOut"
+                    type="animation"
+                >
                     <keep-alive>
                         <component :is="view" :users="users"></component>
                     </keep-alive>

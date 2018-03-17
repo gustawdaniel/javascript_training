@@ -1,6 +1,8 @@
 <template>
 
-    <div class="slides-wrapper" :class="{ 'loading': isLoading }">
+    <div class="slides-wrapper" :class="{ 'loading': isLoading || !loaded }">
+
+      <template v-if="loaded">
 
         <button class="btn btn-primary btn-action btn-lg slides-prev" :disabled="start || isLoading" @click="changeSlide(-1)">
             <i class="icon icon-arrow-left"></i>
@@ -13,6 +15,8 @@
         <button class="btn btn-primary btn-action btn-lg slides-next" :disabled="end || isLoading" @click="changeSlide(1)">
             <i class="icon icon-arrow-right"></i>
         </button>
+
+      </template>
 
     </div>
 
@@ -31,7 +35,8 @@
         data() {
             return {
                 active: 0,
-                isLoading: false
+                isLoading: false,
+              loaded: false
             }
         },
         computed: {
@@ -48,6 +53,13 @@
                 return this.active === this.images.length - 1;
             }
         },
+      watch: {
+        images(n) {
+              if(n.length) {
+                  preloadImage(this.activeUrl).then(url=>this.loaded=true);
+              }
+        }
+      },
         methods: {
             changeSlide(dir) {
 

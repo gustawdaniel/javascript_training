@@ -41,6 +41,20 @@
         }
     });
 
+    let obj = {
+        firstName: "Jan",
+        lastName: "Kowalski",
+
+        get fullName() {
+            return this.firstName + " " + this.lastName;
+        },
+        set fullName(value) {
+            [this.firstName, this.lastName] = value.split(" ");
+        }
+    };
+
+    console.log(obj.firstName);
+
 </script>
 </body>
 </html>

@@ -21,6 +21,7 @@
 
         <div id="app" v-cloak>
             <p>{{ items.join(", ") }}</p>
+
         </div>
 
     </div>
@@ -28,16 +29,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 
-    new Vue({
+    let vm = new Vue({
         el: "#app",
         data: {
             items: [
                 "Sok",
                 "Mleko",
-                "Chleb"
+                "Chleb",
+                "Bułki",
+                "Suczki",
+                "Smakołyki"
             ]
+        },
+        methods: {
+            addItem() {
+                this.items.push(prompt("Podaj produkt"));
+            },
+            filterItems() {
+                this.items = this.items.filter(i => i.startsWith("S"));
+            }
         }
     });
+
+
+
 
 </script>
 </body>

@@ -16,8 +16,22 @@
 
         .fade-enter-active,
         .fade-leave-active {
-            transition: opacity 0.5s;
+            transition: opacity 0.25s;
         }
+
+        .fade-leave-active {
+            position: absolute;
+        }
+
+        .fade-move {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -28,11 +42,11 @@
 
             <h1>Użytkownicy</h1>
 
-            <button class="btn btn-primary">Pomieszaj</button>
+            <button class="btn btn-primary" @click="shuffle">Pomieszaj</button>
 
-            <ul>
+            <transition-group tag="ul" name="fade" appear>
                 <li v-for="user in users" :key="user.id" @click="remove(user.id)">{{ user.firstName }} {{ user.lastName }}</li>
-            </ul>
+            </transition-group>
 
         </div>
 
@@ -57,6 +71,9 @@
             remove: function(id) {
                 var index = _.findIndex(this.users, ["id", id]);
                 this.users.splice(index, 1);
+            },
+            shuffle() {
+                this.users = _.shuffle(this.users);
             }
         }
     });

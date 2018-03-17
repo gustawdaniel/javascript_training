@@ -36,7 +36,7 @@
 
             <br><br>
 
-            <edu-counter :init-value="initValue" @progress="toggleState"></edu-counter>
+            <edu-counter :init-value="initValue" ></edu-counter>
 
         </div>
 
@@ -44,6 +44,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
+
+    var Event = new Vue({
+        methods: {
+            toggleState(value) {
+                this.$emit("progress", value);
+            }
+        }
+    });
 
     var Counter = {
         template: `
@@ -74,7 +82,7 @@
             start: function() {
                 this.countdown();
                 this.inProgress = true;
-                this.$emit("progress", this.inProgress);
+                Event.toggleState(this.inProgress);
             },
             countdown: function() {
 
@@ -86,7 +94,7 @@
                     setTimeout(() => {
                         this.counter = this.initValue;
                         this.inProgress = false;
-                        this.$emit("progress", this.inProgress);
+                        Event.toggleState(this.inProgress);
                     }, 1000);
                 }
 
@@ -107,6 +115,11 @@
         },
         components: {
             "edu-counter": Counter
+        },
+        created() {
+            Event.$on('progress', (value) => {
+                this.toggleState(value);
+            })
         }
     });
 

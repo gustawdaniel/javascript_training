@@ -32,10 +32,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, index) in users">
+                    <tr v-for="(user, index) in users" :key="user.id">
                         <td>{{ index + 1 }}.</td>
                         <td>
                             {{ user.firstName }} {{ user.lastName }}
+                            <input type="text">
                         </td>
                         <td>{{ user.age }}</td>
                     </tr>
@@ -44,7 +45,7 @@
 
             <br>
 
-            <button class="btn btn-primary float-right">Pomieszaj</button>
+            <button class="btn btn-primary float-right" @click="shuffle">Pomieszaj</button>
 
         </div>
 
@@ -66,7 +67,9 @@
             ]
         },
         methods: {
-
+            shuffle() {
+                this.users = _.shuffle(this.users);
+            }
         }
     });
 

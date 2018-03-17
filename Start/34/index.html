@@ -44,7 +44,9 @@
                 </div>
             </div>
         `,
-        props: ["initValue"],
+        props: {
+            initValue: { type: Number, 'default': 10, validator: value => value <= 10 }
+        },
         data: function() {
             return {
                 counter: this.initValue,

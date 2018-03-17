@@ -23,7 +23,7 @@
 
             <h1>Formularz</h1>
 
-            <form action="#" class="form-horizontal" @submit.prevent="submit">
+            <form action="#" class="form-horizontal" @submit.prevent="submit" v-if="!sent">
                 <div class="form-group">
                     <div class="col-2">
                         <label class="form-label">Imię</label>
@@ -46,7 +46,7 @@
                 </div>
             </form>
 
-            <div class="toast">Twoja wiadomość została wysłana!</div>
+            <div class="toast" v-else>Twoja wiadomość została wysłana!</div>
 
         </div>
 
@@ -67,7 +67,7 @@
 
                 setTimeout(() => {
                     this.sent = true;
-                }, 2000);
+                }, 500);
             }
         }
     });

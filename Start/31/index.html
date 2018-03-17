@@ -23,7 +23,7 @@
 
             <h1>Player</h1>
 
-            <video class="video-responsive" src="http://code.eduweb.pl/kurs-vue/media/video.mp4" ref="video"></video>
+            <video controls class="video-responsive" src="http://code.eduweb.pl/kurs-vue/media/video.mp4" ref="video" v-volume="volume"></video>
             <br>
             <button class="btn btn-primary" v-text="isPlaying ? 'Pause' : 'Play'" @click="playPause"></button>
 
@@ -37,7 +37,8 @@
     new Vue({
         el: "#app",
         data: {
-            isPlaying: false
+            isPlaying: false,
+            volume: 1
         },
         methods: {
             playPause: function() {
@@ -51,6 +52,9 @@
                     this.isPlaying = false;
                 }
             }
+        },
+        directives: {
+            volume: (el, binding) => { el.volume = binding.value; }
         }
     });
 

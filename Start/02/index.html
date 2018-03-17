@@ -9,7 +9,6 @@
             margin-top: 100px;
             margin-bottom: 100px;
         }
-
         [v-cloak] {
             display: none;
         }
@@ -20,14 +19,22 @@
     <div class="container grid-lg">
 
         <div id="app" v-cloak>
-            <h1>Hello World/h1>
-            <p>Witaj w świecie Vue.js!</p>
+            <h1>{{ heading }}</h1>
+            <p>{{ text }}</p>
         </div>
 
     </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            heading: "Hello World",
+            text: "Witaj świecie Vue js :D :D"
+        }
+    });
 
 </script>
 </body>

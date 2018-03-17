@@ -22,6 +22,28 @@
 
         <edu-app>
 
+            <template slot-scope="props">
+                <div class="container">
+                    <div class="grid-lg">
+                        <h1>{{ props.title }}</h1>
+                    </div>
+                </div>
+            </template>
+
+            <template slot="navbar">
+            <a href="#"  class="btn btn-link">eduweb.pl</a>
+            </template>
+
+            <template slot="main">
+                <h2>Panel administracyjny</h2>
+                <p>Skorzystaj z nawigacji powyżej.</p>
+            </template>
+
+            <template slot="footer">
+                <footer>
+                    <p>Copyright &copy; {{ (new Date()).getFullYear() }}.</p>
+                </footer>
+            </template>
         </edu-app>
 
     </div>
@@ -42,6 +64,8 @@
         template: `
         <div>
 
+            <slot :title="title"></slot>
+
             <div class="container grid-lg">
 
                 <header class="navbar">
@@ -50,6 +74,7 @@
                         <a href="https://vuejs.org" class="navbar-brand mr-2">Vue.js</a>
                         <a href="#" class="btn btn-link" @click.prevent="view = 'edu-home'">Home</a>
                         <a href="#" class="btn btn-link" @click.prevent="view = 'edu-users'">Użytkownicy</a>
+                        <slot name="navbar"></slot>
                     </section>
 
                 </header>
@@ -61,8 +86,7 @@
                 <section>
                     <keep-alive>
                         <component :is="view" :users="users">
-                            <h2>Panel administracyjny</h2>
-                            <p>Skorzystaj z nawigacji powyżej.</p>
+                            <slot name="main"></slot>
                         </component>
                     </keep-alive>
                 </section>
@@ -71,9 +95,7 @@
 
             <div class="container grid-lg">
 
-                <footer>
-                    <p>Copyright &copy; {{ (new Date()).getFullYear() }}.</p>
-                </footer>
+                <slot name="footer"></slot>
 
             </div>
 

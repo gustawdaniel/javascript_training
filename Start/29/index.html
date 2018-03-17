@@ -35,7 +35,7 @@
                     <tr v-for="(user, index) in users">
                         <td>{{ index + 1 }}.</td>
                         <td>{{ user.firstName }} {{ user.lastName }}</td>
-                        <td>{{ user.birthdate }}</td>
+                        <td>{{ user.birthdate | date("DD - MM - Y") }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -48,6 +48,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 
+//    Vue.filter("date", (data) => {return moment(data).format("DD-MM-Y")});
+
     new Vue({
         el: "#app",
         data: {
@@ -58,6 +60,11 @@
                 {firstName: "Katarzyna", lastName: "Tomczyk", birthdate: "1979-06-13T00:00:00.000Z"},
                 {firstName: "Mariusz", lastName: "Klasa", birthdate: "1981-10-22T00:00:00.000Z"}
             ]
+        },
+        filters: {
+            date(data, format="DD-MM-Y") {
+                return moment(data).format(format)
+            }
         }
     });
 

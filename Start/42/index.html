@@ -26,8 +26,8 @@
 
                 <section class="navbar-section">
                     <a href="https://vuejs.org" class="navbar-brand mr-2">Vue.js</a>
-                    <a href="#" class="btn btn-link">Home</a>
-                    <a href="#" class="btn btn-link">Użytkownicy</a>
+                    <a href="#" class="btn btn-link" @click.prevent="view = 'edu-home'">Home</a>
+                    <a href="#" class="btn btn-link" @click.prevent="view = 'edu-users'">Użytkownicy</a>
                 </section>
 
             </header>
@@ -37,7 +37,9 @@
         <div class="container grid-lg">
 
             <section>
-
+                <keep-alive>
+                    <component :is="view" :users="users"></component>
+                </keep-alive>
             </section>
 
         </div>
@@ -100,7 +102,19 @@
                 </tbody>
             </table>
         `,
-        props: ["users"]
+        props: ["users"],
+        created() {
+            console.log("created");
+        },
+        destroyed() {
+            console.log("destroyed");
+        },
+        activated() {
+            console.log("activated");
+        },
+        deactivated() {
+            console.log("deactivated");
+        }
     });
 
     Vue.component("edu-user", {
@@ -146,6 +160,7 @@
     new Vue({
         el: "#app",
         data: {
+            view: "edu-home",
             users: [
                 {id: 1, fullName: "Jan Kowalski", age: 32},
                 {id: 2, fullName: "Anna Nowak", age: 27},
