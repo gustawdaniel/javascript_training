@@ -291,3 +291,10 @@ in firs console
 sudo apt install httpie
 ```
 
+Strange js behaviors
+
+    x = new String("x")
+    typeof x
+
+    "object"
+
