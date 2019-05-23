@@ -1,7 +1,9 @@
 <phpunit colors="true">
     <testsuites>
         <testsuite name="default">
-            <directory>test</directory>
+            <file>test/BasicTest.php</file>
+            <file>test/MongoTest.php</file>
+            <file>test/ApiTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

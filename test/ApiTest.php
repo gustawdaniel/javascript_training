@@ -7,6 +7,7 @@ class ApiTest extends TestCase
 {
     public function testWordsKeyIsAlwaysReturned()
     {
+        var_dump("API");
         $json = file_get_contents("http://localhost:8000/words");
         $this->assertIsString($json);
 
