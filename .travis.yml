@@ -3,7 +3,7 @@ php:
   - "7.2"
   - "7.3"
 before_script:
-  - pecl -q install mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
+  - pecl -q install mongo && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - php -m
   - composer install --dev
   - cd api && php -S localhost:8000 api.php
