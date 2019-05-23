@@ -29,7 +29,7 @@ To fully open project you will need 4 terminals - one for any of servers. Before
 ```
 git clone https://github.com/gustawdaniel/javascript_training.git .
 npm install
-gulp
+./node_modules/gulp/bin/gulp.js --production
 firefox localhost:8080 &
 ```
 

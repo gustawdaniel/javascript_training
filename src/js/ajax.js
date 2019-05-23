@@ -1,9 +1,9 @@
 (function () {
 
-    var con = document.querySelector("#con-ajax");
-    var url = "http://127.0.0.1:3000/people";
+    const con = document.querySelector("#con-ajax");
+    const url = "http://127.0.0.1:3000/people";
 
-    var girls = [
+    const girls = [
         "Anna","Basia","Kasia","Ola","Agusia","Magda","Sylwia","Melania","Natalia"
     ];
 

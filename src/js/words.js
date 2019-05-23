@@ -3,12 +3,18 @@
     var form = document.querySelector("#con-words form");
 
     // presentation of data
-    $.get( "http://localhost:8000/words", function( data ) {
+    $.get( "http://localhost:8000/words").done(function( data ) {
+
+        console.log(data);
+
         for (var i = 0; i < data.words.length; i++) {
             list.innerHTML += '<li class="list-group-item" data-id="'+data.words[i].id+'">'+data.words[i].word+'</li>';
             // console.log(data.words[i]);
         }
-    });
+    })
+        .fail(function (xhr, status, err) {
+            console.error(xhr, status, err);
+        });
 
     $(form).submit(function(e) {
 

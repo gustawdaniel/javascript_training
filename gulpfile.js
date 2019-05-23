@@ -1,41 +1,43 @@
-var gulp = require('gulp');
-var p = require('gulp-load-plugins')();
-const del = require('del');
+const gulp = require('gulp'),
+    del = require('del'),
+    mode = require('gulp-mode')(),
+    connect = require('gulp-connect'),
+    plumber = require('gulp-plumber'),
+    concat = require('gulp-concat'),
+    sass = require('gulp-sass'),
+    cleanCss = require('gulp-clean-css'),
+    sourcemaps = require('gulp-sourcemaps');
 
-var c = {
+const c = {
     src: "src",
     web: "web",
     bower: "bower_components",
     js: "/**/*js",
-    scss: "/**/*scss",
-
-    production: !!p.util.env.production,
-    sourceMaps: !p.util.env.production
+    scss: "/**/*scss"
 };
 
-var app = {};
+const app = {};
 
 app.addStyle = function (paths, filename) {
     gulp.src(paths)
-        .pipe(p.plumber())
-        .pipe(p.if(c.sourceMaps,p.sourcemaps.init()))
-        .pipe(p.sass())
-        .pipe(p.concat(filename))
-        .pipe(c.production ? p.cleanCss() : p.util.noop())
-        .pipe(p.if(c.sourceMaps,p.sourcemaps.write('.')))
-        .pipe(gulp.dest(c.web+'/css'))
-        .pipe(p.connect.reload());
+        .pipe(plumber())
+        .pipe(mode.development(sourcemaps.init()))
+        .pipe(sass())
+        .pipe(concat(filename))
+        .pipe(mode.production(cleanCss()))
+        .pipe(mode.development(sourcemaps.write('.')))
+        .pipe(gulp.dest(c.web + '/css'))
+        .pipe(connect.reload());
 };
 
 app.addScript = function (paths, filename) {
     gulp.src(paths)
-        .pipe(p.plumber())
-        .pipe(p.if(c.sourceMaps,p.sourcemaps.init()))
-        .pipe(p.concat(filename))
-        .pipe(c.production ? p.uglify() : p.util.noop())
-        .pipe(p.if(c.sourceMaps,p.sourcemaps.write('.')))
-        .pipe(gulp.dest(c.web+'/js'))
-        .pipe(p.connect.reload());
+        .pipe(plumber())
+        .pipe(mode.development(sourcemaps.init()))
+        .pipe(concat(filename))
+        .pipe(mode.development(sourcemaps.write('.')))
+        .pipe(gulp.dest(c.web + '/js'))
+        .pipe(connect.reload());
 };
 //
 app.copy = function (srcFiles, outputDir) {
@@ -43,79 +45,89 @@ app.copy = function (srcFiles, outputDir) {
         .pipe(gulp.dest(outputDir));
 };
 
-gulp.task('styles', function () {
+gulp.task('styles', function (resolve) {
     app.addStyle([
-        c.bower+'/tether/dist/css/tether.min.css',
-        c.bower+'/bootstrap/dist/css/bootstrap.min.css',
-        c.bower+'/font-awesome/css/font-awesome.min.css',
-        c.src+c.scss
-    ],'style.css');
+        c.bower + '/tether/dist/css/tether.min.css',
+        c.bower + '/bootstrap/dist/css/bootstrap.min.css',
+        c.bower + '/font-awesome/css/font-awesome.min.css',
+        c.src + c.scss
+    ], 'style.css');
+    resolve();
 });
 
-gulp.task('scripts', function () {
-    app.addScript([
-        c.bower+'/jquery/dist/jquery.min.js',
-        c.bower+'/tether/dist/js/tether.min.js',
-        c.bower+'/bootstrap/dist/js/bootstrap.min.js',
-        c.src+c.js
-    ],'site.js');
+gulp.task('scripts', function (resolve, reject) {
+    try {
+        app.addScript([
+            c.bower + '/jquery/dist/jquery.min.js',
+            c.bower + '/tether/dist/js/tether.min.js',
+            c.bower + '/bootstrap/dist/js/bootstrap.min.js',
+            c.src + c.js
+        ], 'site.js');
+    } catch (e) {
+        reject(e);
+    }
+    resolve();
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function (resolve) {
     app.copy(
-        c.bower+'/font-awesome/fonts/*',
-        c.web+'/fonts'
-    )
+        c.bower + '/font-awesome/fonts/*',
+        c.web + '/fonts'
+    );
+    resolve();
 });
 
-gulp.task('data', function () {
+gulp.task('data', function (resolve) {
     app.copy(
-        c.src+'/data/*',
-        c.web+'/data'
-    ).pipe(p.connect.reload());
+        c.src + '/data/*',
+        c.web + '/data'
+    ).pipe(connect.reload());
+    resolve();
 });
 
-gulp.task( 'clean', function() {
-    del([
-        c.web+'/css',
-        c.web+'/js',
-        c.web+'/fonts',
-        c.web+'/data'
-    ])
+gulp.task('clean', function (resolve, reject) {
+    try {
+        [c.web + '/css', c.web + '/js', c.web + '/fonts', c.web + '/data'].forEach(path => del.sync(path));
+    } catch (e) {
+        reject(e);
+    }
+    resolve();
 });
 
-gulp.task('webserver', function() {
-    console.log(p);
+// gulp.task('webserver', function () {
+//
+//     gulp.src("php")
+//         .pipe(p.webserver({
+//             open: false,
+//             port: 8040,
+//         }));
+// });
 
-    gulp.src("php")
-        .pipe(p.webserver({
-            open: false,
-            port: 8040,
-        }));
+gulp.task('watch', function (resolve) {
+    gulp.watch(c.src + c.scss, gulp.series(['styles']));
+    gulp.watch(c.src + c.js, gulp.series(['scripts']));
+    gulp.watch([c.web + '/*.html'], gulp.series(['html']));
+    gulp.watch(['data/*.json'], gulp.series(['data']));
+    resolve();
 });
 
-gulp.task('watch', function () {
-    gulp.watch(c.src+c.scss, ['styles']);
-    gulp.watch(c.src+c.js, ['scripts']);
-    gulp.watch([c.web+'/*.html'], ['html']);
-    gulp.watch(['data/*.json'], ['data']);
-});
-
-gulp.task('connect', function() {
-    p.connect.server({
+gulp.task('connect', function (resolve) {
+    connect.server({
         root: c.web,
         livereload: true
     });
+    resolve()
 });
 
-gulp.task('html', function () {
-    gulp.src(c.web+'/*.html')
-        .pipe(p.connect.reload());
+gulp.task('html', function (done) {
+    gulp.src(c.web + '/*.html')
+        .pipe(connect.reload());
 });
 
-gulp.task('server-mongo', p.shell.task([
-    'cd api && php -S localhost:8000 api.php &'
-]));
+// we removed shell
+// gulp.task('server-mongo', p.shell.task([
+//     'cd api && php -S localhost:8000 api.php &'
+// ]));
 
-gulp.task('build', ['clean', 'styles', 'scripts', 'fonts', 'data',]);
-gulp.task('default', ['build', 'connect', 'watch']);
+gulp.task('build', gulp.series(['clean', 'styles', 'scripts', 'fonts', 'data']));
+gulp.task('default', gulp.series(['build', 'connect', 'watch']));

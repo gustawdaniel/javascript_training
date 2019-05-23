@@ -29,6 +29,7 @@
                     case "": {
                         switch ($method) {
                             case 'GET': {
+//                                $data["words"] = [];
                                 $query = new MongoDB\Driver\Query([],['projection' => ['_id' => 1, "word" => 1]]);
                                 $rows = $mng->executeQuery("javascript_training.javascript_training", $query);
                                 foreach ($rows as $row) {
@@ -53,6 +54,7 @@
                         $id = new MongoDB\BSON\ObjectID($parameter);
                         switch ($method) {
                             case 'GET': {
+//                                $data["words"];
                                 $query = new MongoDB\Driver\Query(['_id' => $id],['projection' => ['_id' => 1, "word" => 1]]);
                                 $rows = $mng->executeQuery("javascript_training.javascript_training", $query);
                                 foreach ($rows as $row) {
