@@ -7,6 +7,8 @@ before_script:
   - pecl install -f mongodb-stable
   - php -m
   - composer install --dev
-  - cd api && php -S localhost:8000 api.php
 script:
+  - nohup php -S localhost:8000 api/api.php > phpd.log 2>&1 &
+  - PHP_SERVER_PID=$!
   - vendor/bin/phpunit
+  - kill -3 $PHP_SERVER_PID
