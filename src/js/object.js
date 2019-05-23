@@ -1,33 +1,23 @@
 (function () {
 
-    var con = document.querySelector("#con-object");
+    const con = document.querySelector("#con-object");
 
     con.appendAsserts = function (arr) {
-        // let state =  :
-
-
-            arr.forEach((el) => {
-                // console.log(el);
-                // console.log(eval(el));
-
-                con.appendChild((function (e) {
-                    e.innerHTML = "Test: [["+ el + "]] evaluated with " + (eval(el) ? "success" : "error");
-                    e.classList.add(eval(el) ? "bg-success" : "bg-danger");
-                    e.style.color = "white";
-                    e.style.border = "none";
-                    return e;
-                })(document.createElement("pre")));
+        arr.forEach((el) => {
+            con.appendChild((function (e) {
+                e.innerHTML = "Test: [[" + el + "]] evaluated with " + (eval(el) ? "success" : "error");
+                e.classList.add(eval(el) ? "bg-success" : "bg-danger");
+                e.style.color = "white";
+                e.style.border = "none";
+                return e;
+            })(document.createElement("pre")));
         });
-
-
     };
-
-
 
 
     function Shape(sideLengths) {
         // usage without new keyword is possible now
-        if( !(this instanceof Shape)){
+        if (!(this instanceof Shape)) {
             return new Shape(sideLengths);
         }
 
@@ -36,7 +26,9 @@
     }
 
     Shape.prototype.getPerimeter = function () {
-        return this._sideLengths.reduce((a,b)=>{return a+b});
+        return this._sideLengths.reduce((a, b) => {
+            return a + b
+        });
     };
 
     Shape.prototype.toString = function () {
@@ -44,37 +36,30 @@
     };
 
 
-
-
-
     function Rectangle(sideLengths) {
-        Shape.call(this,[].concat.apply([],[sideLengths,sideLengths]));
+        Shape.call(this, [].concat.apply([], [sideLengths, sideLengths]));
         this._name = "Rectangle";
     }
 
     Rectangle.prototype = Object.create(Shape.prototype);
 
     Rectangle.prototype.getArea = function () {
-        return this._sideLengths.splice(0,2).reduce((a,b)=>{return a*b});
+        return this._sideLengths.splice(0, 2).reduce((a, b) => {
+            return a * b
+        });
     };
 
 
-
-
-
     function Square(sideLength) {
-        Rectangle.call(this,[sideLength,sideLength]);
+        Rectangle.call(this, [sideLength, sideLength]);
         this._name = "Square";
     }
 
     Square.prototype = Object.create(Rectangle.prototype);
 
 
-
-
-
     function Triangle(sideLength) {
-        Shape.call(this,[sideLength,sideLength,sideLength]);
+        Shape.call(this, [sideLength, sideLength, sideLength]);
         this._name = "Triangle";
     }
 
@@ -83,17 +68,13 @@
 
     Triangle.prototype.getArea = function () {
         var a = this._sideLengths[0];
-        return ((a*a*Math.sqrt(3))/4);
+        return ((a * a * Math.sqrt(3)) / 4);
     };
 
 
-
-
-
-
     var sh1 = Shape([2]), // usage without new keyword is tested
-        sh2 = new Shape([2,3,4,5,6,7,8,9]),
-        rec = new Rectangle([1,2]),
+        sh2 = new Shape([2, 3, 4, 5, 6, 7, 8, 9]),
+        rec = new Rectangle([1, 2]),
         sqr = new Square(8),
         tri = new Triangle(1);
 
@@ -129,8 +110,10 @@
     // }
 
     // properties only
-    for(let key in sh1) {
-        if(!sh1.hasOwnProperty(key)){ continue; }
+    for (let key in sh1) {
+        if (!sh1.hasOwnProperty(key)) {
+            continue;
+        }
         // console.log(key);
     }
     //
@@ -152,24 +135,14 @@
         })(document.createElement("div")))
     }
 
-    appendFrameWithText.call(con,"Usage of call example...");
-
+    appendFrameWithText.call(con, "Usage of call example...");
 
     function bind(fn, obj) {
-        var args = Array.prototype.slice.call(arguments,2);
+        var args = Array.prototype.slice.call(arguments, 2);
 
         return function () {
-            fn.apply(obj,args);
+            fn.apply(obj, args);
         }
     }
-
-
-
-
-
-
-
-
-
 
 })();
