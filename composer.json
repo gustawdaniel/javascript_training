@@ -12,5 +12,9 @@
             "email": "gustaw.daniel@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "ext-mongodb": "*"
+    }
 }
