@@ -1,0 +1,16 @@
+{
+    "name": "daniel/javascript_training",
+    "description": "Trainining of JavaScript",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Gustaw",
+            "email": "gustaw.daniel@gmail.com"
+        }
+    ],
+    "require": {}
+}
