@@ -4,8 +4,8 @@
   "description": "This repo contains exemplary usage of javascript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install"
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,9 @@
     "gulp-mode": "^1.0.2",
     "gulp-sass": "^4.0.2",
     "gulp-shell": "^0.7.0"
+  },
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.5",
+    "font-awesome": "^4.7.0"
   }
 }

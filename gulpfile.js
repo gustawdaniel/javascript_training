@@ -11,7 +11,7 @@ const gulp = require('gulp'),
 const c = {
     src: "src",
     web: "web",
-    bower: "bower_components",
+    bower: "node_modules",
     js: "/**/*js",
     scss: "/**/*scss"
 };
