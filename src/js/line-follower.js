@@ -1,5 +1,7 @@
 (function () {
 
+    'use strict';
+
     class Follower {
         constructor() {
             this.d = 20;
@@ -16,19 +18,19 @@
         }
 
         control(i) {
-            console.log(i, this.states);
+            // console.log(i, this.states);
             const Kp = 0.1;
 
             const sum = this.states.reduce((a,b) => a+b)/100;
             const err = this.states.map((s,i) => s * ( i - 2 )).reduce((a,b) => a+b)/100;
             const dP = Kp * err;
-            console.log("dp", dP);
+            // console.log("dp", dP);
 
             this.lastTurns.shift();
             this.lastTurns.push(dP);
 
             if( sum <= 0 || sum >= 5 ) { // if no reading
-                console.log("CRITIC", this.lastTurns.reduce((a, b) => a + b));
+                // console.log("CRITIC", this.lastTurns.reduce((a, b) => a + b));
                 this.lPower = 0.2 * Math.sign(this.lastTurns.reduce((a,b) => a+b));
                 this.rPower = - 0.2 * Math.sign(this.lastTurns.reduce((a,b) => a+b));
             } else {
@@ -104,39 +106,52 @@
         }
 
     }
-    let i = 0;
-    let stop = false;
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+    class FollowerMap {
+        constructor() {
+            this.i = 0;
+            this.stop = true;
 
-        ctx.drawImage(img, 0, 0);
-        follower.read(ctx);
-        follower.draw(ctx);
-        follower.control(i++);
-        follower.move();
+            this.follower = new Follower();
 
-        if(!stop) window.requestAnimationFrame(draw);
+            this.canvas = document.getElementById('follower-map');
+            this.ctx = this.canvas.getContext('2d');
+
+            this.img = new Image();
+            this.img.onload = () => {
+                window.requestAnimationFrame(this.draw.bind(this));
+            };
+            this.img.src = "/data/final.png";
+
+            window.follower = this.follower;
+
+            document.addEventListener('keyup', (event) => {
+                if(event.key === " ") {
+                    this.stop = !this.stop;
+                    if(!this.stop) window.requestAnimationFrame(this.draw.bind(this));
+                }
+            })
+        }
+
+        draw() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear canvas
+
+            this.ctx.drawImage(this.img, 0, 0);
+            this.follower.read(this.ctx);
+            this.follower.draw(this.ctx);
+            this.follower.control(this.i++);
+            this.follower.move();
+
+            if(!this.stop) window.requestAnimationFrame(this.draw.bind(this));
+        }
+
+        start() {
+            this.stop = false;
+            window.requestAnimationFrame(this.draw.bind(this));
+        }
     }
 
-    const follower = new Follower();
-
-    const canvas = document.getElementById('follower-map');
-    const ctx = canvas.getContext('2d');
-
-    const img = new Image();
-    img.onload = function() {
-        window.requestAnimationFrame(draw);
-    };
-    img.src = "/data/final.png";
-
-    window.follower = follower;
-
-    document.addEventListener('keyup', function (event) {
-        if(event.key === " ") {
-            stop = !stop;
-            if(!stop) window.requestAnimationFrame(draw);
-        }
-    })
+    (new FollowerMap())
+        // .start();
 
 })();
