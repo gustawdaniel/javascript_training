@@ -20,20 +20,21 @@
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^5.0.0",
     "gulp-live-server": "0.0.31",
     "gulp-livereload": "^4.0.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sourcemaps": "^2.2.0",
-    "gulp-clean": "^0.4.0",
     "gulp-mode": "^1.0.2",
+    "gulp-plumber": "^1.1.0",
     "gulp-sass": "^4.0.2",
-    "gulp-shell": "^0.7.0"
+    "gulp-shell": "^0.7.0",
+    "gulp-sourcemaps": "^2.2.0"
   },
   "dependencies": {
     "bootstrap": "v4.0.0-alpha.5",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "json-server": "^0.15.0"
   }
 }

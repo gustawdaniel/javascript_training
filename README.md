@@ -35,6 +35,7 @@ firefox localhost:8080 &
 
 ## MongoDb API server
 ```
+sudo apt-get install php-mongodb
 cd api && php -S localhost:8000 api.php
 ```
 
@@ -45,8 +46,7 @@ cd php && php -S localhost:8040
 
 ## Json-server for db.json
 ```
-npm install -g json-server
-cd src/data/ json-server db.json
+./node_modules/json-server/lib/cli/bin.js src/data/db.json
 ```
 
 -------------------------

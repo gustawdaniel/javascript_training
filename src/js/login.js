@@ -44,9 +44,9 @@
             button.classList.add("btn-danger");
             button.value = e.message;
             message.innerHTML = "";
-            console.log("error");
+            // console.log("error");
             button.setAttribute("disabled","true");
-            console.log(e.message);
+            // console.log(e.message);
         }
 
         return false;
