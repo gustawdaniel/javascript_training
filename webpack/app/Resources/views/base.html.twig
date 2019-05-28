@@ -8,7 +8,10 @@
 
     <title>{% block title %}Find Something to Lift!{% endblock %}</title>
 
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/vendors.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/layout.css') }}">
+    {% endblock %}
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
@@ -95,6 +98,7 @@
 {% block javascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('build/vendors.js') }}"></script>
     <script src="{{ asset('build/layout.js') }}"></script>
 {% endblock %}
 

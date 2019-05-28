@@ -1,6 +1,6 @@
-const $ = require('jquery');
-require('bootstrap-sass');
-const RepLogApp = require('./Components/RepLogApp');
+import $ from 'jquery'
+import 'bootstrap-sass'
+import RepLogApp from './Components/RepLogApp'
 
 global.$ = $;
 
