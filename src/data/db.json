@@ -1,20 +1,12 @@
 {
   "people": [
     {
-      "name": "Kasia",
-      "id": 83
+      "name": "Anna",
+      "id": 186
     },
     {
       "name": "Ola",
-      "id": 85
-    },
-    {
-      "name": "Magda",
-      "id": 86
-    },
-    {
-      "name": "Agusia",
-      "id": 87
+      "id": 187
     }
   ]
 }

@@ -4,7 +4,7 @@
     try {
         Helper = {}
     } catch (e) {
-        console.log("REF ERR");
+        // console.log("REF ERR");
     }
 
 })();

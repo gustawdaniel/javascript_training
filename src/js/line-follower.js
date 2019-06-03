@@ -4,35 +4,138 @@
 
     class Follower {
         constructor() {
-            this.d = 20;
-            this.l = 30;
-            this.a = 5;
-            this.x = 17;
-            this.y = 170;
+            this.d = 74;// wheels distance
+            this.l = 48; // from wheels center to circle center
+            this.isSpecialControlled = false;
+            this.specialDirection = null;  // +1 right, -1 left
+            this.specialTurnnsToBackToNormal = null;
+            this.isDisconnected = false;
+            // this.a = 5; depreciated
+            this.r = 17.7; // radius
+
+            // start position
+            this.x = 113; // x position of center between wheels
+            this.y = 270; // y -||-
             this.alf = 85*Math.PI/180;
-            this.states = [null, null, null, null, null];
+
+            this.states = [...Array(8)].map(()=> 0);
             this.rPower = 0.1;
             this.lPower = 0.1;
             this.powerToSpeed = 5;
             this.lastTurns = [...Array(100)].map(() => 0);
         }
 
+        detectDisconnection() {
+            let peaks = 0;
+            for( let i=0; i<this.states.length; i++)
+            {
+                while(i<this.states.length && this.states[i] === 0)i++;
+
+                while(i<this.states.length && this.states[i] !== 0)i++;
+
+                if(this.states[i-1] !== 0) peaks++;
+            }
+
+            if (peaks >= 3) {
+                throw Error("STOP, more than 2 peaks" + this.states.join(","));
+            }
+
+            if (peaks <= 0) {
+                throw Error("STOP, less than 1 peak" + this.states.join(","));
+            }
+
+            this.isDisconnected = peaks >= 2;
+        }
+
+        removeDisconnectedPeak() {
+
+            // find bigger peak
+            let sizes = [0,0];
+            let peaks = 0;
+
+            for( let i=0; i<this.states.length; i++)
+            {
+                while(i<this.states.length && this.states[i] === 0)i++;
+
+                while(i<this.states.length && this.states[i] !== 0){
+                    sizes[peaks]+=this.states[i];
+                    i++;
+                }
+
+                peaks++;
+            }
+
+            peaks = 0;
+            for( let i=0; i<this.states.length; i++)
+            {
+                while(i<this.states.length && this.states[i] === 0)i++;
+                while(i<this.states.length && this.states[i] !== 0) {
+                    if(sizes[0] > sizes[1] && peaks === 1 || sizes[0] < sizes[1] && peaks === 0 ) {
+                        this.states[i] = 0;
+                    }
+                    i++;
+                }
+
+                peaks++;
+            }
+
+        }
+
+        checkIfWeShouldAndSwitchToSpecialControl() {
+            if(this.states[1] >= 50) {
+
+                this.isSpecialControlled = true;
+                this.specialDirection = -1; // left
+
+            } else if(this.states[6] >= 50) {
+
+                this.isSpecialControlled = true;
+                this.specialDirection = 1; // right
+                this.specialTurnnsToBackToNormal = 50;
+
+            }
+        }
+
+        checkIfWeShouldCloseSpecialControlAndClose()
+        {
+            this.specialTurnnsToBackToNormal--;
+
+            if(this.specialTurnnsToBackToNormal <= 0) {
+
+                this.specialDirection = null;
+                this.isSpecialControlled = false;
+                this.specialTurnnsToBackToNormal = 50;
+
+            }
+        }
+
         control(i) {
-            // console.log(i, this.states);
+            console.log(i, this.states);
             const Kp = 0.1;
 
             const sum = this.states.reduce((a,b) => a+b)/100;
-            const err = this.states.map((s,i) => s * ( i - 2 )).reduce((a,b) => a+b)/100;
+            const err = this.states.map((s,i) => s * ( i - 3.5 )).reduce((a,b) => a+b)/100;
             const dP = Kp * err;
-            // console.log("dp", dP);
+            console.log("dp", dP, "sum", sum);
 
             this.lastTurns.shift();
             this.lastTurns.push(dP);
 
-            if( sum <= 0 || sum >= 5 ) { // if no reading
-                // console.log("CRITIC", this.lastTurns.reduce((a, b) => a + b));
-                this.lPower = 0.2 * Math.sign(this.lastTurns.reduce((a,b) => a+b));
-                this.rPower = - 0.2 * Math.sign(this.lastTurns.reduce((a,b) => a+b));
+            this.detectDisconnection();
+            if(this.isDisconnected) {
+                this.removeDisconnectedPeak();
+                console.log("DISCONNECTED, processed states", this.states);
+            }
+
+            // this.checkIfWeShouldAndSwitchToSpecialControl();
+
+            if( this.isSpecialControlled ) { // if no reading
+                console.log("CRITIC", i);
+                this.lPower = 0.2 * Math.sign(this.specialDirection);
+                this.rPower = - 0.2 * Math.sign(this.specialDirection);
+
+               // this.checkIfWeShouldCloseSpecialControlAndClose();
+
             } else {
                 this.lPower = 0.1 + dP;
                 this.rPower = 0.1 - dP;
@@ -40,9 +143,16 @@
         }
 
         read(ctx) {
-            this.states = this.states.map((s, i) =>
-                ctx.getImageData(...this.rotate(this.x+this.l, this.y+this.a*(i-2)), 1, 1).data[3]
+            this.states = this.states.map((s, i) => {
+                    const phi = Math.PI / 7 * (7 - i);
+                    return ctx.getImageData(
+                        ...this.rotate(this.x + this.l + this.r * Math.sin(phi), this.y + this.r * Math.cos(phi)),
+                        1,
+                        1
+                    ).data[3];
+                }
             );
+
             // console.log(this.states);
 
             return this.states;
@@ -77,11 +187,11 @@
             ctx.closePath();
 
             // wheels
-            ctx.moveTo(...this.rotate(this.x-5, this.y-this.d/2));
-            ctx.lineTo(...this.rotate(this.x+5, this.y-this.d/2));
+            ctx.moveTo(...this.rotate(this.x-10, this.y-this.d/2));
+            ctx.lineTo(...this.rotate(this.x+10, this.y-this.d/2));
             ctx.closePath();
-            ctx.moveTo(...this.rotate(this.x-5, this.y+this.d/2));
-            ctx.lineTo(...this.rotate(this.x+5, this.y+this.d/2));
+            ctx.moveTo(...this.rotate(this.x-10, this.y+this.d/2));
+            ctx.lineTo(...this.rotate(this.x+10, this.y+this.d/2));
             ctx.closePath();
 
             // core
@@ -89,15 +199,16 @@
             ctx.lineTo(...this.rotate(this.x+this.l, this.y));
             ctx.closePath();
 
-            // front
-            ctx.moveTo(...this.rotate(this.x+this.l, this.y-2*this.a));
-            ctx.lineTo(...this.rotate(this.x+this.l, this.y+2*this.a));
+            // front circle
+            ctx.moveTo(...this.rotate(this.x+this.l, this.y));
+            ctx.arc(...this.rotate(this.x+this.l, this.y), this.r, 0+this.alf, Math.PI+this.alf, true); // bug here
             ctx.closePath();
 
-            // detectores
-            for(let i = 0; i < 5; i++) {
-                ctx.moveTo(...this.rotate(this.x+this.l, this.y+this.a*(i-2)));
-                ctx.lineTo(...this.rotate(this.x+this.l+5, this.y+this.a*(i-2)));
+            // detectors
+            for(let i = 0; i < 8; i++) {
+                const phi = Math.PI / 7 * i;
+                ctx.moveTo(...this.rotate(this.x+this.l+this.r*Math.sin(phi), this.y+this.r*Math.cos(phi)));
+                ctx.lineTo(...this.rotate(this.x+this.l+(1.3*this.r)*Math.sin(phi), this.y+(1.3*this.r)*Math.cos(phi)));
                 ctx.closePath();
             }
 
@@ -121,19 +232,21 @@
             this.img.onload = () => {
                 window.requestAnimationFrame(this.draw.bind(this));
             };
-            this.img.src = "/data/final.png";
+            this.img.src = "/data/framed_final.png";
 
             window.follower = this.follower;
 
             document.addEventListener('keyup', (event) => {
-                if(event.key === " ") {
+                if(event.key === "s") {
                     this.stop = !this.stop;
+                    console.log("STOP", this.stop);
                     if(!this.stop) window.requestAnimationFrame(this.draw.bind(this));
                 }
             })
         }
 
         draw() {
+            console.log("DRAW", window.requestAnimationFrame);
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear canvas
 
             this.ctx.drawImage(this.img, 0, 0);
@@ -141,6 +254,8 @@
             this.follower.draw(this.ctx);
             this.follower.control(this.i++);
             this.follower.move();
+
+            // this.stop = true;
 
             if(!this.stop) window.requestAnimationFrame(this.draw.bind(this));
         }
