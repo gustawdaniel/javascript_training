@@ -38,11 +38,13 @@
             let peaks = Helper.countPeaks(this.states);
 
             if (peaks >= 3) {
-                 throw Error("STOP, more than 2 peaks" + this.states.join(","));
+                // throw Error("STOP, more than 2 peaks" + this.states.join(","));
+                // it is normal...
             }
 
             if (peaks <= 0) {
-                  throw Error("STOP, less than 1 peak" + this.states.join(","));
+                // throw Error("STOP, less than 1 peak" + this.states.join(","));
+                //it is normal too...
             }
 
             this.isDisconnected = peaks >= 2;
@@ -50,29 +52,25 @@
 
         removeDisconnectedPeak() {
 
-	    if(this.lastTurns[ this.lastTurns.length-1 ] > 0) // last turn was to right, so we should ignore left block(we assume there are 2 blocks)
-	    {
-		let i=0;
-		while(i<this.states.length && this.states[i] === 0) i++;
-
-		while(i<this.states.length && this.states[i] !== 0)
-		{
-		    this.states[i] = 0;
-		    i++;
-		}
-            }
-	    else
+            if (this.lastTurns[this.lastTurns.length - 1] > 0) // last turn was to right, so we should ignore left block(we assume there are 2 blocks)
             {
-		let i = 7;
+                let i = 0;
+                while (i < this.states.length && this.states[i] === 0) i++;
 
-		while(i<this.states.length && this.states[i] === 0) i--;
+                while (i < this.states.length && this.states[i] !== 0) {
+                    this.states[i] = 0;
+                    i++;
+                }
+            } else {
+                let i = 7;
 
-		while(i<this.states.length && this.states[i] !== 0)
-		{
-		    this.states[i] = 0;
-		    i--;
-		}
-	    }
+                while (i < this.states.length && this.states[i] === 0) i--;
+
+                while (i < this.states.length && this.states[i] !== 0) {
+                    this.states[i] = 0;
+                    i--;
+                }
+            }
         }
 
         checkIfWeShouldAndSwitchToSpecialControl() {
@@ -321,22 +319,65 @@
 
     }
 
-    function control(i) {
+    // function disconnectedControl(i) {
+    //     this.detectDisconnection();
+    //     if (this.isDisconnected) {
+    //         console.log("last turn", this.lastTurns[this.lastTurns.length - 1]);
+    //         this.removeDisconnectedPeak();
+    //         console.log("DISCONNECTED, processed states", this.states);
+    //     }
+    //
+    //     console.log(i, this.states, this.currentMode);
+    //     console.log(
+    //         "err", Helper.getError(follower.states),
+    //         "norm", Helper.getNorm(follower.states),
+    //         "peaks", Helper.countPeaks(follower.states),
+    //         "power", Helper.getRadialVelocity(this),
+    //         "modeCounter", this.currentModeCounter,
+    //         "disconnectionCancelled", this.disconnectionCancelled,
+    //         "specialDirection", this.specialDirection
+    //     );
+    //
+    //     const dOmega = Helper.getRadialVelocity(this);
+    //     this.rememberNewAndForgetLastTurn(dOmega);
+    //     this.setPower(0.1, dOmega);
+    // }
 
-        // this.detectDisconnection();
-        // if(this.isDisconnected) {
-        //     console.log("last turn", this.lastTurns[ this.lastTurns.length-1 ]);
-        //     this.removeDisconnectedPeak();
-        //     console.log("DISCONNECTED, processed states", this.states);
-        // }
+    function mergedControl() {
+        this.detectDisconnection();
+        if (this.isDisconnected) {
+            console.log("last turn", this.lastTurns[this.lastTurns.length - 1]);
+            this.removeDisconnectedPeak();
+            console.log("DISCONNECTED, processed states", this.states);
+        }
+
+        console.log(i, this.states, this.currentMode);
+        console.log(
+            "err", Helper.getError(follower.states),
+            "norm", Helper.getNorm(follower.states),
+            "peaks", Helper.countPeaks(follower.states),
+            "power", Helper.getRadialVelocity(this),
+            "modeCounter", this.currentModeCounter,
+            "disconnectionCancelled", this.disconnectionCancelled,
+            "specialDirection", this.specialDirection
+        );
+
+        const dOmega = Helper.getRadialVelocity(this);
+        this.rememberNewAndForgetLastTurn(dOmega);
+        this.setPower(0.1, dOmega);
+    }
+
+    function stateMachineControl(i) {
+
+        this.detectDisconnection();
+        if (this.isDisconnected) {
+            console.log("last turn", this.lastTurns[this.lastTurns.length - 1]);
+            this.removeDisconnectedPeak();
+            console.log("DISCONNECTED, processed states", this.states);
+        }
+
 
         // transitions
-
-        if(Helper.countPeaks(this.states) === 2 && this.currentMode === "preSpecial") {
-            this.disconnectionCancelled = false;
-            this.currentMode = "outMove";
-            this.currentModeCounter = 50;
-        }
 
         // normal -> preSpecial
         if (Helper.getNorm(Helper.projection(this.states, [1, 1, 1, 0, 0, 1, 1, 1])) >= 0 && this.currentMode === "normal") {
@@ -349,7 +390,7 @@
             // this.logger.plotStates(this.statesHistory);
             // throw new Error("NORM 0");
             this.currentMode = "outMove";
-            this.currentModeCounter = 50;
+            this.currentModeCounter = 10;
         }
         // outMove -> outTurn
         if (this.currentModeCounter <= 0 && this.currentMode === "outMove") {
@@ -360,14 +401,12 @@
         // outTurn -> preSpecial
         if (Helper.getNorm(follower.states) > 1 && this.currentMode === "outTurn") {
             this.currentMode = "preSpecial";
-            this.disconnectionCancelled = true;
         }
 
         // preSpecial -> normal
         if (
             Helper.getNorm(Helper.projection(this.states, [1, 1, 1, 0, 0, 1, 1, 1])) <= 0
             && this.currentMode === "preSpecial"
-            && this.disconnectionCancelled
         ) {
             this.currentMode = "normal";
             this.specialDirection = null;
@@ -408,26 +447,10 @@
 
         }
 
-
-        // this.detectDisconnection();
-        // if(this.isDisconnected) {
-        //     this.removeDisconnectedPeak();
-        //     console.log("DISCONNECTED, processed states", this.states);
-        // }
-
-        // // this.checkIfWeShouldAndSwitchToSpecialControl();
-        //
-        // if( this.isSpecialControlled ) { // if no reading
-        //     console.log("CRITIC", i);
-        //     this.lPower = 0.2 * Math.sign(this.specialDirection);
-        //     this.rPower = - 0.2 * Math.sign(this.specialDirection);
-        //
-        //     // this.checkIfWeShouldCloseSpecialControlAndClose();
-        //
-        // }
     }
 
-    (new FollowerMap(new Follower(control)))
+    (new FollowerMap(new Follower(stateMachineControl))) // disconnectedControl
+    // (new FollowerMap(new Follower(stateMachineControl)))
     // .start();
 
 })();
