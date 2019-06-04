@@ -38,11 +38,11 @@
             let peaks = Helper.countPeaks(this.states);
 
             if (peaks >= 3) {
-                throw Error("STOP, more than 2 peaks" + this.states.join(","));
+                 throw Error("STOP, more than 2 peaks" + this.states.join(","));
             }
 
             if (peaks <= 0) {
-                throw Error("STOP, less than 1 peak" + this.states.join(","));
+                  throw Error("STOP, less than 1 peak" + this.states.join(","));
             }
 
             this.isDisconnected = peaks >= 2;
@@ -50,34 +50,29 @@
 
         removeDisconnectedPeak() {
 
-            // find bigger peak
-            let sizes = [0, 0];
-            let peaks = 0;
+	    if(this.lastTurns[ this.lastTurns.length-1 ] > 0) // last turn was to right, so we should ignore left block(we assume there are 2 blocks)
+	    {
+		let i=0;
+		while(i<this.states.length && this.states[i] === 0) i++;
 
-            for (let i = 0; i < this.states.length; i++) {
-                while (i < this.states.length && this.states[i] === 0) i++;
-
-                while (i < this.states.length && this.states[i] !== 0) {
-                    sizes[peaks] += this.states[i];
-                    i++;
-                }
-
-                peaks++;
+		while(i<this.states.length && this.states[i] !== 0)
+		{
+		    this.states[i] = 0;
+		    i++;
+		}
             }
+	    else
+            {
+		let i = 7;
 
-            peaks = 0;
-            for (let i = 0; i < this.states.length; i++) {
-                while (i < this.states.length && this.states[i] === 0) i++;
-                while (i < this.states.length && this.states[i] !== 0) {
-                    if (sizes[0] > sizes[1] && peaks === 1 || sizes[0] < sizes[1] && peaks === 0) {
-                        this.states[i] = 0;
-                    }
-                    i++;
-                }
+		while(i<this.states.length && this.states[i] === 0) i--;
 
-                peaks++;
-            }
-
+		while(i<this.states.length && this.states[i] !== 0)
+		{
+		    this.states[i] = 0;
+		    i--;
+		}
+	    }
         }
 
         checkIfWeShouldAndSwitchToSpecialControl() {
@@ -327,6 +322,13 @@
     }
 
     function control(i) {
+
+        // this.detectDisconnection();
+        // if(this.isDisconnected) {
+        //     console.log("last turn", this.lastTurns[ this.lastTurns.length-1 ]);
+        //     this.removeDisconnectedPeak();
+        //     console.log("DISCONNECTED, processed states", this.states);
+        // }
 
         // transitions
 
