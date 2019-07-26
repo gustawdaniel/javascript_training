@@ -4,7 +4,6 @@ const gulp = require('gulp'),
     connect = require('gulp-connect'),
     plumber = require('gulp-plumber'),
     concat = require('gulp-concat'),
-    sass = require('gulp-sass'),
     cleanCss = require('gulp-clean-css'),
     sourcemaps = require('gulp-sourcemaps');
 
@@ -13,7 +12,7 @@ const c = {
     web: "web",
     bower: "bower_components",
     js: "/**/*js",
-    scss: "/**/*scss"
+    css: "/**/*css"
 };
 
 const app = {};
@@ -22,7 +21,6 @@ app.addStyle = function (paths, filename) {
     gulp.src(paths)
         .pipe(plumber())
         .pipe(mode.development(sourcemaps.init()))
-        .pipe(sass())
         .pipe(concat(filename))
         .pipe(mode.production(cleanCss()))
         .pipe(mode.development(sourcemaps.write('.')))
@@ -50,7 +48,7 @@ gulp.task('styles', function (resolve) {
         c.bower + '/tether/dist/css/tether.min.css',
         c.bower + '/bootstrap/dist/css/bootstrap.min.css',
         c.bower + '/font-awesome/css/font-awesome.min.css',
-        c.src + c.scss
+        c.src + c.css
     ], 'style.css');
     resolve();
 });

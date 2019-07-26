@@ -1,0 +1,21 @@
+version: '3'
+services:
+  cookie:
+    build:
+      context: .
+      dockerfile: ./docker/cookie/Dockerfile
+    ports:
+      - "8040:8040"
+
+
+# docker/cookie
+#  api:
+#    build: docker/api
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - mongo
+#  mongo:
+#    image: mongo
+#    ports:
+#      - "27017:27017"
