@@ -28,6 +28,8 @@
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#con-object">Object</a></li>
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#con-ajax">Ajax</a></li>
             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#con-cookie">Cookie</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#con-line-follower">Line Follower</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#con-symfony">Symfony</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a class="nav-link" href="http://gustawdaniel.pl/website">Author: Daniel Gustaw</a></li>
@@ -52,11 +54,11 @@
                 <form>
                     <div class="form-group">
                         <label for="name">Username</label>
-                        <input id="name" type="text" class="form-control">
+                        <input id="name" type="text" class="form-control" autocomplete="username">
                     </div>
                     <div class="form-group">
                         <label for="pass">Password</label>
-                        <input id="pass" type="password" class="form-control">
+                        <input id="pass" type="password" class="form-control" autocomplete="current-password">
                     </div>
                     <br>
                     <input type="submit" class="btn btn-primary btn-block" value="Login">
@@ -144,6 +146,21 @@
         </div>
     </div>
 
+    <div id="con-line-follower" class="fluid-container tab-pane text-xs-center">
+
+<!--        <div style="background: red; width: 1200px; height: 400px;"></div>-->
+
+        <canvas id="follower-map" width="1400" height="504"></canvas>
+<!--        <canvas id="my-house" width="2043" height="735"></canvas>-->
+
+    </div>
+
+    <div id="con-symfony" class="container tab-pane"></div>
+
+    <div id="follower-heatmap" style="width: 100%; height: 800px;" ></div>
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="js/site.js"></script>
 </body>
 </html>

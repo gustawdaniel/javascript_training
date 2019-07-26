@@ -1,13 +1,13 @@
-(function() {
-    var list = document.querySelector("#con-words .list-group");
-    var form = document.querySelector("#con-words form");
+(function(window, $) {
+    const list = document.querySelector("#con-words .list-group");
+    const form = document.querySelector("#con-words form");
 
     // presentation of data
     $.get( "http://localhost:8000/words").done(function( data ) {
 
-        console.log(data);
+        // console.log(data);
 
-        for (var i = 0; i < data.words.length; i++) {
+        for (let i = 0; i < data.words.length; i++) {
             list.innerHTML += '<li class="list-group-item" data-id="'+data.words[i].id+'">'+data.words[i].word+'</li>';
             // console.log(data.words[i]);
         }
@@ -18,8 +18,8 @@
 
     $(form).submit(function(e) {
 
-        var url = "http://localhost:8000/words"; // the script where you handle the form input.
-        var data = {"word" : form.elements["word"].value };
+        const url = "http://localhost:8000/words"; // the script where you handle the form input.
+        const data = {"word" : form.elements["word"].value };
 
         $.ajax({
             type: "POST",
@@ -38,8 +38,8 @@
     });
 
     list.addEventListener("click",function (e) {
-        if(e.target && e.target.nodeName == "LI") {
-            console.log(e.target.dataset.id + " was clicked");
+        if(e.target && e.target.nodeName === "LI") {
+            // console.log(e.target.dataset.id + " was clicked");
 
             var url = "http://localhost:8000/words"; // the script where you handle the form input.
 
@@ -51,13 +51,13 @@
                 dataType: 'json',
                 success: function(data)
                 {
-                    console.log(JSON.stringify(data)); // show response from the php script.
+                    // console.log(JSON.stringify(data)); // show response from the php script.
                 }
             });
 
             e.target.parentNode.removeChild(e.target);
 
-            console.log("removed");
+            // console.log("removed");
 
         }
     });
@@ -66,4 +66,4 @@
     // console.log(list.children);
 
 
-})();
+})(window, jQuery);

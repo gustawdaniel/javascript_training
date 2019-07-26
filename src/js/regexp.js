@@ -19,10 +19,10 @@
         e.target.parentNode.classList.add(cl(url));
         e.target.parentNode.classList.remove(cl(url,(a)=>!a));
 
-        console.log(cl(url));
-        console.log(cl(url,(a)=>!a));
+        // console.log(cl(url));
+        // console.log(cl(url,(a)=>!a));
 
-        console.log(url);
+        // console.log(url);
     });
 
     // placeholder on focus
