@@ -1,0 +1,11 @@
+type User {
+  id: ID! @id
+  name: String! @unique
+  balances: [Balance!]!
+}
+
+type Balance @embedded {
+	currency: String!
+	platform: String!
+	amount: Float!
+}

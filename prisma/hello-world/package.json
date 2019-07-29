@@ -1,0 +1,14 @@
+{
+  "name": "prisma-filter-many",
+  "version": "1.0.0",
+  "description": "",
+  "main": "seed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prisma-client-lib": "^1.34.3"
+  }
+}
