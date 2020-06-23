@@ -1,13 +1,8 @@
 {
   "people": [
     {
-<<<<<<< HEAD
       "name": "Basia",
       "id": 61
-    },
-    {
-      "name": "Sylwia",
-      "id": 63
     },
     {
       "name": "Anna",
@@ -16,14 +11,14 @@
     {
       "name": "Magda",
       "id": 65
-=======
-      "name": "Sylwia",
-      "id": 250
     },
     {
       "name": "Anna",
       "id": 251
->>>>>>> 85e6855e1aa3abfbd7591817e6787a75515e12e6
+    },
+    {
+      "name": "Kasia",
+      "id": 252
     }
   ]
 }
