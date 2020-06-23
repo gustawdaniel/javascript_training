@@ -20,17 +20,16 @@ This repo contains exemplary usage of javascript:
 -------------------
 
 # Instalation
-To fully open project you will need 4 terminals - one for any of servers. Before cloning repo create catalog for it. Enter tho catalog and setup any part of code below in separate terminal. You need to have free the following ports:
-+ 8080 - gulp-index
+To fully open project you will need 4 terminals - one for any of servers. Before cloning repo create catalog for it. 
+Enter tho catalog and setup any part of code below in separate terminal. You need to have free the following ports:
 + 8000 - php-mongo
 + 8040 - php-cookie
 + 3000 - json-server
-## Gulp server with index
+
+## Run WEB
+
 ```
-git clone https://github.com/gustawdaniel/javascript_training.git .
-npm install
-./node_modules/gulp/bin/gulp.js --production
-firefox localhost:8080 &
+http-server web
 ```
 
 ## MongoDb API server
