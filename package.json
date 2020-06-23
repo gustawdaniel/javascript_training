@@ -18,25 +18,12 @@
   },
   "homepage": "https://github.com/gustawdaniel/javascript_training#readme",
   "devDependencies": {
-    "del": "^5.0.0",
-    "gulp": "^4.0.2",
-    "gulp-clean": "^0.4.0",
-    "gulp-clean-css": "^4.2.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.7.0",
-    "gulp-live-server": "0.0.31",
-    "gulp-livereload": "^4.0.1",
-    "gulp-mode": "^1.0.2",
-    "gulp-plumber": "^1.2.1",
-    "gulp-shell": "^0.7.1",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-sass": "^4.0.2",
-    "webpack-dev-server": "^3.7.2"
+    "del": "^5.1.0"
   },
   "dependencies": {
-    "bootstrap": "v4.3.1",
+    "bootstrap": "v4.5.0",
     "font-awesome": "^4.7.0",
-    "json-server": "^0.15.0",
-    "prisma-client-lib": "^1.34.3"
+    "json-server": "^0.16.1",
+    "prisma-client-lib": "^1.34.10"
   }
 }
